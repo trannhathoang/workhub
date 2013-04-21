@@ -36,6 +36,19 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+|--------------------------------------------------------------------------
+| Application constants
+|--------------------------------------------------------------------------
+|
+| These constants are used in this specific application
+|
+*/
+
+/* User Types, change these values will mess up the database */
+define('UT_APPLICANT', 0);
+define('UT_EMPLOYER', 1);
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
