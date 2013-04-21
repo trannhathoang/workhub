@@ -6,6 +6,7 @@ class Home extends CI_Controller {
 
   function __construct() {
     parent::__construct();
+    $this->load->library('session');
   }
 
   function index() {
@@ -20,9 +21,10 @@ class Home extends CI_Controller {
   }
 
   function logout() {
+    $this->load->helper('url');
     $this->session->unset_userdata('logged_in');
     session_destroy();
-    redirect('home', 'refresh');
+    redirect('login', 'refresh');
   }
 
 }
