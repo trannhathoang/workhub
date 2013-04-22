@@ -45,9 +45,17 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 |
 */
 
-/* User Types, change these values will mess up the database */
-define('UT_APPLICANT', 0);
-define('UT_EMPLOYER', 1);
+/* Account Types, change these values will mess up the database */
+define('APPLICANT', 0);
+define('EMPLOYER', 1);
+
+/* Account status */
+define('INACTIVE', 0);
+define('ACTIVE', 1);
+
+/* Sex - use for applicant */
+define('MALE', 0);
+define('FEMALE', 1);
 
 
 /* End of file constants.php */

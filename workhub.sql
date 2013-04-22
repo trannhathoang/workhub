@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 20, 2013 at 04:44 PM
+-- Generation Time: Apr 22, 2013 at 04:30 AM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -111,25 +111,18 @@ CREATE TABLE IF NOT EXISTS `Job` (
 CREATE TABLE IF NOT EXISTS `User` (
   `UID` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(50) NOT NULL,
-  `Password` varchar(50) NOT NULL,
+  `Password` varchar(64) NOT NULL,
   `Type` int(11) NOT NULL DEFAULT '0',
+  `Status` int(2) NOT NULL DEFAULT '1' COMMENT '0 = Inactive; 1 = Active',
   `Email` varchar(50) NOT NULL,
   `Name` varchar(256) NOT NULL,
-  `RID` int(11) NOT NULL COMMENT 'Region ID',
-  `Address` varchar(256) NOT NULL,
-  `Description` text NOT NULL,
-  `Birthday` date NOT NULL COMMENT 'Applicant',
-  `Category` varchar(50) NOT NULL COMMENT 'Employer',
-  `Size` int(11) NOT NULL COMMENT 'Employer',
+  `RID` int(11) DEFAULT NULL COMMENT 'Region ID',
+  `Address` varchar(256) DEFAULT NULL,
+  `Description` text,
+  `Sex` int(2) NOT NULL DEFAULT '0' COMMENT 'Applicant',
+  `Birthday` date DEFAULT NULL COMMENT 'Applicant',
+  `Category` varchar(50) DEFAULT NULL COMMENT 'Employer',
+  `Size` int(11) DEFAULT NULL COMMENT 'Employer',
   PRIMARY KEY (`UID`),
   UNIQUE KEY `username` (`Username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `User`
---
-
-INSERT INTO `User` (`UID`, `Username`, `Password`, `Type`, `Email`, `Name`, `RID`, `Address`, `Description`, `Birthday`, `Category`, `Size`) VALUES
-(1, 'user1', 'e10adc3949ba59abbe56e057f20f883e', 0, '', '', 0, '', '', '0000-00-00', '', 0),
-(2, 'user2', 'e10adc3949ba59abbe56e057f20f883e', 0, '', '', 0, '', '', '0000-00-00', '', 0),
-(3, 'user3', 'c33367701511b4f6020ec61ded352059', 0, '', '', 0, '', '', '0000-00-00', '', 0);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;

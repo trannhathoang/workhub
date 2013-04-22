@@ -22,40 +22,30 @@ class User_model extends CI_Model {
     }
   }
 
-  public function signup($username, $password, $type) {
-    // Check valid fields
-    if ( ! (isset($username) && isset($password) && isset($type))) {
+  /* Sign up with user data passed through array */
+  public function signup($data) {
+    if ( ! isset($data)) return FALSE;
+    // Check required fields
+    if ( ! (isset($data['Username'])
+            && isset($data['Password'])
+            && isset($data['Type'])
+            && isset($data['Email'])
+            && isset($data['Name']))) {
       return FALSE;
     }
 
     // Check for valid user type
-    if ($type !== UT_APPLICANT && $type !== UT_EMPLOYER) return FALSE;
-
-    $ins_result = TRUE;
+    if ($data['Type'] !== APPLICANT && $data['Type'] !== EMPLOYER) return FALSE;
 
     // Write data to database
-    $data = array('Username' => $username,
-                  'Password' => MD5($password),
-                  'Type' => $type);
-    $ins_result = $this->db->insert('User', $data);
+    $this->db->trans_start();
 
-    return TRUE;
-  }
+    $this->db->insert('User', $data);
+    $ins_result = $this->db->trans_status();
 
-  /* Check if an username can be used to signup */
-  public function check_available($username) {
-    if ( ! isset($username)) return FALSE;
+    $this->db->trans_complete();
 
-    // Check if 'username' is used
-    $this->db->select('UID');
-    $this->db->from('User');
-    $this->db->where('Username', $username);
-    $this->db->limit(1);
-
-    $query = $this->db->get();
-    if ($query->num_rows() > 0) return FALSE;
-
-    return TRUE;
+    return $ins_result;
   }
 
 }
