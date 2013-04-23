@@ -13,18 +13,7 @@ class Verifyainfo extends CI_Controller {
     $this->load->library('form_validation');
     $this->load->helper('url');
 
-    $this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean|alpha_dash|is_unique[User.Username]');
-    $this->form_validation->set_rules('password', 'Password', 'required|xss_clean|min_length[6]|max_length[64]');
-    $this->form_validation->set_rules('confirm', 'Password confirmation', 'required|xss_clean|matches[password]');
-    $this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|is_unique[User.Email]');
-    $this->form_validation->set_rules('name', 'Name', 'trim|required|xss_clean');
-    $this->form_validation->set_rules('sex', 'Sex', 'required');
-    $this->form_validation->set_rules('birthday', 'Birthday', 'max_length[10]');
-    // TODO Region
-    $this->form_validation->set_rules('address', 'Address', 'max_length[256]');
-    $this->form_validation->set_rules('description', 'Description', 'max_length[512]');
-
-    if ($this->form_validation->run() === FALSE || $this->check_signup() === FALSE) {
+    if ($this->form_validation->run('signup_app') === FALSE || $this->check_signup() === FALSE) {
       //Field validation failed
       $data['title'] = 'Enter information';
       $this->load->view('templates/header.php', $data);

@@ -11,11 +11,18 @@ class Home extends CI_Controller {
 
   function index() {
     if($this->session->userdata('logged_in')) {
-      $session_data = $this->session->userdata('logged_in');
-      $data['username'] = $session_data['username'];
+      $sess_data = $this->session->userdata('logged_in');
+      $data['title'] = 'Home';
+      $data['uid'] = $sess_data['uid'];
+      $data['username'] = $sess_data['username'];
+      $data['type'] = $sess_data['type'];
 
       $this->load->view('templates/header.php', $data);
-      $this->load->view('home_view', $data);
+      if ($data['type'] == EMPLOYER) {
+        $this->load->view('home_emp_view', $data);
+      } else {
+        $this->load->view('home_app_view', $data);
+      }
       $this->load->view('templates/footer.php', $data);
     } else {
       //If no session, redirect to login page
