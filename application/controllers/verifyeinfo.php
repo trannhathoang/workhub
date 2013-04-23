@@ -26,7 +26,10 @@ class Verifyeinfo extends CI_Controller {
 
     if ($this->form_validation->run() === FALSE || $this->check_signup() === FALSE) {
       //Field validation failed
+      $data['title'] = 'Enter information';
+      $this->load->view('templates/header.php', $data);
       $this->load->view('signup_emp_view');
+      $this->load->view('templates/footer.php', $data);
     } else {
       //Go to login view
       redirect('login', 'refresh');

@@ -20,12 +20,16 @@ class Verifyainfo extends CI_Controller {
     $this->form_validation->set_rules('name', 'Name', 'trim|required|xss_clean');
     $this->form_validation->set_rules('sex', 'Sex', 'required');
     $this->form_validation->set_rules('birthday', 'Birthday', 'max_length[10]');
+    // TODO Region
     $this->form_validation->set_rules('address', 'Address', 'max_length[256]');
     $this->form_validation->set_rules('description', 'Description', 'max_length[512]');
 
     if ($this->form_validation->run() === FALSE || $this->check_signup() === FALSE) {
       //Field validation failed
+      $data['title'] = 'Enter information';
+      $this->load->view('templates/header.php', $data);
       $this->load->view('signup_app_view');
+      $this->load->view('templates/footer.php', $data);
     } else {
       //Go to login view
       redirect('login', 'refresh');

@@ -11,7 +11,10 @@ class Verifytype extends CI_Controller {
 
     if ($this->form_validation->run() === FALSE) {
       //Field validation failed
+      $data['title'] = 'Choose account type';
+      $this->load->view('templates/header.php', $data);
       $this->load->view('signup_type_view');
+      $this->load->view('templates/footer.php', $data);
     } else {
       //Go to signup info view
       //echo "Redirecting";

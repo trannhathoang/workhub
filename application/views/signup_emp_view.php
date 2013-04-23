@@ -1,65 +1,52 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<h1>Enter information</h1>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<?php echo validation_errors(); ?>
 
-  <head>
-    <title>Sign up</title>
-  </head>
+<?php echo form_open('verifyeinfo'); ?>
+  <label for="username">Username</label>
+  <input type="text" size="20" id="username" name="username"
+    value="<?php echo set_value('username'); ?>"/>
+  <br/>
 
-  <body>
-    <h1>Enter information</h1>
+  <label for="password">Password</label>
+  <input type="password" size="20" id="password" name="password"/>
+  <br/>
 
-    <?php echo validation_errors(); ?>
+  <label for="confirm">Confirm password</label>
+  <input type="password" size="20" id="confirm" name="confirm"/>
+  <br/>
 
-    <?php echo form_open('verifyeinfo'); ?>
-      <label for="username">Username</label>
-      <input type="text" size="20" id="username" name="username"
-        value="<?php echo set_value('username'); ?>"/>
-      <br/>
+  <label for="email">Email</label>
+  <input type="text" size="20" id="email" name="email"
+    value="<?php echo set_value('email'); ?>"/>
+  <br/>
 
-      <label for="password">Password</label>
-      <input type="password" size="20" id="password" name="password"/>
-      <br/>
+  <label for="name">Name</label>
+  <input type="text" size="20" id="name" name="name"
+    value="<?php echo set_value('name'); ?>"/>
+  <br/>
 
-      <label for="confirm">Confirm password</label>
-      <input type="password" size="20" id="confirm" name="confirm"/>
-      <br/>
+  <label for="region">Region</label>
+  <br/>
 
-      <label for="email">Email</label>
-      <input type="text" size="20" id="email" name="email"
-        value="<?php echo set_value('email'); ?>"/>
-      <br/>
+  <label for="address">Address</label>
+  <input type="text" size="40" id="address" name="address"
+    value="<?php echo set_value('address'); ?>"/>
+  <br/>
 
-      <label for="name">Name</label>
-      <input type="text" size="20" id="name" name="name"
-        value="<?php echo set_value('name'); ?>"/>
-      <br/>
+  <label for="category">Category</label>
+  <input type="text" size="20" id="category" name="category"
+    value="<?php echo set_value('category'); ?>"/>
+  <br/>
 
-      <label for="region">Region</label>
-      <br/>
+  <label for="size">Size</label>
+  <input type="text" size="20" id="size" name="size"
+    value="<?php echo set_value('size'); ?>"/>
+  <br/>
 
-      <label for="address">Address</label>
-      <input type="text" size="40" id="address" name="address"
-        value="<?php echo set_value('address'); ?>"/>
-      <br/>
+  <label for="description">Description</label>
+  <textarea rows="5" cols="60" id="description" name="description"><?php echo set_value('description'); ?></textarea>
+  <br/>
 
-      <label for="category">Category</label>
-      <input type="text" size="20" id="category" name="category"
-        value="<?php echo set_value('category'); ?>"/>
-      <br/>
-
-      <label for="size">Size</label>
-      <input type="text" size="20" id="size" name="size"
-        value="<?php echo set_value('size'); ?>"/>
-      <br/>
-
-      <label for="description">Description</label>
-      <textarea rows="5" cols="60" id="description" name="description"><?php echo set_value('description'); ?></textarea>
-      <br/>
-
-      <input type="submit" value="Sign up"/>
-    </form>
-  </body>
-
-</html>
-
+  <input type="submit" value="Sign up"/>
+</form>

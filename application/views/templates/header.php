@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title><?php echo $title ?> - WorkHub</title>
+	<title>WorkHub - <?php echo $title ?></title>
 </head>
 
 <body>
