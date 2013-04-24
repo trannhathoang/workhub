@@ -4,6 +4,7 @@ class Signup extends CI_Controller {
 
   function __construct() {
     parent::__construct();
+    $this->load->model('region_model', '', TRUE);
     $this->load->helper('form');
   }
 
@@ -14,18 +15,20 @@ class Signup extends CI_Controller {
   function choose_type() {
     $data['title'] = 'Choose account type';
     $this->load->view('templates/header.php', $data);
-    $this->load->view('signup_type_view');
+    $this->load->view('signup_type_view', $data);
     $this->load->view('templates/footer.php', $data);
   }
 
   function enter_info($acctype) {
     $data['title'] = 'Enter information';
+    $data['regions'] = $this->region_model->get_regions();
+
     $this->load->view('templates/header.php', $data);
 
     if ($acctype == EMPLOYER) {
-      $this->load->view('signup_emp_view');
+      $this->load->view('signup_emp_view', $data);
     } else {
-      $this->load->view('signup_app_view');
+      $this->load->view('signup_app_view', $data);
     }
 
     $this->load->view('templates/footer.php', $data);

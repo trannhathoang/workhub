@@ -27,6 +27,13 @@
   <br/>
 
   <label for="region">Region</label>
+  <select name="region" value="24">
+    <?php
+    foreach ($regions as $row) {
+      echo '<option value="'.$row['RID'].'">'.$row['Name'].'</option>';
+    }
+    ?>
+  </select>
   <br/>
 
   <label for="address">Address</label>

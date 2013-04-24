@@ -32,6 +32,10 @@ $config = array(
         'label' => 'Birthday',
         'rules' => 'max_length[10]'),
       array(
+        'field' => 'region',
+        'label' => 'Region',
+        'rules' => 'greater_than[1]'),
+      array(
         'field' => 'address',
         'label' => 'Address',
         'rules' => 'max_length[256]'),
@@ -62,6 +66,10 @@ $config = array(
         'field' => 'name',
         'label' => 'Name',
         'rules' => 'trim|required'),
+      array(
+        'field' => 'region',
+        'label' => 'Region',
+        'rules' => 'greater_than[1]'),
       array(
         'field' => 'address',
         'label' => 'Address',

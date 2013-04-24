@@ -11,7 +11,7 @@ class Login extends CI_Controller {
     $this->load->helper('url');
     $data['title'] = 'Login';
     $this->load->view('templates/header.php', $data);
-    $this->load->view('login_view');
+    $this->load->view('login_view', $data);
     $this->load->view('templates/footer.php', $data);
   }
 

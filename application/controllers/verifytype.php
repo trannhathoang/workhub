@@ -13,7 +13,7 @@ class Verifytype extends CI_Controller {
       //Field validation failed
       $data['title'] = 'Choose account type';
       $this->load->view('templates/header.php', $data);
-      $this->load->view('signup_type_view');
+      $this->load->view('signup_type_view', $data);
       $this->load->view('templates/footer.php', $data);
     } else {
       //Go to signup info view

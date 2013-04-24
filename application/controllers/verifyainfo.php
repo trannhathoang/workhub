@@ -5,7 +5,7 @@ class Verifyainfo extends CI_Controller {
 
   function __construct() {
     parent::__construct();
-    $this->load->database();
+    $this->load->model('region_model', '', TRUE);
     $this->load->model('user_model','',TRUE);
   }
 
@@ -16,8 +16,10 @@ class Verifyainfo extends CI_Controller {
     if ($this->form_validation->run('signup_app') === FALSE || $this->check_signup() === FALSE) {
       //Field validation failed
       $data['title'] = 'Enter information';
+      $data['regions'] = $this->region_model->get_regions();
+
       $this->load->view('templates/header.php', $data);
-      $this->load->view('signup_app_view');
+      $this->load->view('signup_app_view', $data);
       $this->load->view('templates/footer.php', $data);
     } else {
       //Go to login view
@@ -33,7 +35,7 @@ class Verifyainfo extends CI_Controller {
                   'Status' => ACTIVE,
                   'Email' => $this->input->post('email'),
                   'Name' => $this->input->post('name'),
-                  'RID' => NULL /*TODO*/,
+                  'RID' => $this->input->post('region'),
                   'Address' => $this->input->post('address'),
                   'Description' => $this->input->post('description'),
                   /* Applicant fields */
