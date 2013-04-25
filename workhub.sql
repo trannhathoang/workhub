@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 22, 2013 at 04:30 AM
+-- Generation Time: Apr 25, 2013 at 09:17 AM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `Application` (
 
 CREATE TABLE IF NOT EXISTS `CV` (
   `CID` int(11) NOT NULL AUTO_INCREMENT,
-  `UID` int(11) NOT NULL,
+  `UID` int(11) NOT NULL COMMENT 'Applicant ID',
   `Category` varchar(255) NOT NULL,
   `EduLev` varchar(50) DEFAULT NULL,
   `Skill` varchar(255) DEFAULT NULL,
@@ -53,12 +53,14 @@ CREATE TABLE IF NOT EXISTS `CV` (
   `Exp` int(11) DEFAULT NULL,
   `AddInfo` varchar(255) DEFAULT NULL,
   `Status` tinyint(1) DEFAULT NULL,
-  `Region` varchar(45) DEFAULT NULL,
-  `BroadRegion` varchar(45) NOT NULL,
+  `RID` int(11) DEFAULT NULL COMMENT 'Region ID',
+  `Area` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`CID`),
-  KEY `CV_Region_idx` (`Region`),
+  KEY `CV_Region_idx` (`RID`),
   KEY `CV_Applicant1_idx` (`UID`),
-  KEY `CV_BroadRegion_idx` (`BroadRegion`)
+  KEY `CV_BroadRegion_idx` (`Area`),
+  KEY `UID` (`UID`),
+  KEY `RID` (`RID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -86,21 +88,115 @@ CREATE TABLE IF NOT EXISTS `Invitation` (
 
 CREATE TABLE IF NOT EXISTS `Job` (
   `JID` int(11) NOT NULL AUTO_INCREMENT,
-  `CID` int(11) NOT NULL,
+  `UID` int(11) NOT NULL COMMENT 'Employer ID',
+  `Name` varchar(128) NOT NULL,
   `Category` varchar(255) DEFAULT NULL,
+  `MinSalary` int(11) DEFAULT NULL,
+  `MaxSalary` int(11) DEFAULT NULL,
   `EduReq` varchar(50) DEFAULT NULL,
   `SkillReq` varchar(255) DEFAULT NULL,
   `LangReq` varchar(255) DEFAULT NULL,
   `ExpReq` int(11) DEFAULT NULL,
   `Location` varchar(255) DEFAULT NULL,
   `ExpiredDate` date DEFAULT NULL,
-  `Region` varchar(45) DEFAULT NULL,
-  `BroadRegion` varchar(45) NOT NULL,
+  `RID` int(11) NOT NULL DEFAULT '0' COMMENT 'Region ID',
+  `Area` varchar(45) DEFAULT NULL,
+  `Description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`JID`),
-  KEY `Job_Region_idx` (`Region`),
-  KEY `Job_Company1_idx` (`CID`),
-  KEY `Job_BroadRegion_idx` (`BroadRegion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `Job_Region_idx` (`RID`),
+  KEY `Job_Company1_idx` (`UID`),
+  KEY `Job_BroadRegion_idx` (`Area`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `Job`
+--
+
+INSERT INTO `Job` (`JID`, `UID`, `Name`, `Category`, `MinSalary`, `MaxSalary`, `EduReq`, `SkillReq`, `LangReq`, `ExpReq`, `Location`, `ExpiredDate`, `RID`, `Area`, `Description`) VALUES
+(1, 12, 'Tester', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, NULL, NULL),
+(2, 12, 'Manager', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Region`
+--
+
+CREATE TABLE IF NOT EXISTS `Region` (
+  `RID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) NOT NULL,
+  PRIMARY KEY (`RID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=65 ;
+
+--
+-- Dumping data for table `Region`
+--
+
+INSERT INTO `Region` (`RID`, `Name`) VALUES
+(1, 'An Giang'),
+(2, 'Bà Rịa - Vũng Tàu'),
+(3, 'Bạc Liêu'),
+(4, 'Bắc Kạn'),
+(5, 'Bắc Giang'),
+(6, 'Bắc Ninh'),
+(7, 'Bến Tre'),
+(8, 'Bình Dương'),
+(9, 'Bình Định'),
+(10, 'Bình Phước'),
+(11, 'Bình Thuận'),
+(12, 'Cà Mau'),
+(13, 'Cao Bằng'),
+(14, 'Cần Thơ'),
+(15, 'Đà Nẵng'),
+(16, 'Đắk Lắk'),
+(17, 'Đắk Nông'),
+(18, 'Điện Biên'),
+(19, 'Đồng Nai'),
+(20, 'Đồng Tháp'),
+(21, 'Gia Lai'),
+(22, 'Hà Giang'),
+(23, 'Hà Nam'),
+(24, 'Hà Nội'),
+(25, 'Hà Tây'),
+(26, 'Hà Tĩnh'),
+(27, 'Hải Dương'),
+(28, 'Hải Phòng'),
+(29, 'Hòa Bình'),
+(30, 'Hồ Chí Minh'),
+(31, 'Hậu Giang'),
+(32, 'Hưng Yên'),
+(33, 'Khánh Hòa'),
+(34, 'Kiên Giang'),
+(35, 'Kon Tum'),
+(36, 'Lai Châu'),
+(37, 'Lào Cai'),
+(38, 'Lạng Sơn'),
+(39, 'Lâm Đồng'),
+(40, 'Long An'),
+(41, 'Nam Định'),
+(42, 'Nghệ An'),
+(43, 'Ninh Bình'),
+(44, 'Ninh Thuận'),
+(45, 'Phú Thọ'),
+(46, 'Phú Yên'),
+(47, 'Quảng Bình'),
+(48, 'Quảng Nam'),
+(49, 'Quảng Ngãi'),
+(50, 'Quảng Ninh'),
+(51, 'Quảng Trị'),
+(52, 'Sóc Trăng'),
+(53, 'Sơn La'),
+(54, 'Tây Ninh'),
+(55, 'Thái Bình'),
+(56, 'Thái Nguyên'),
+(57, 'Thanh Hóa'),
+(58, 'Thừa Thiên - Huế'),
+(59, 'Tiền Giang'),
+(60, 'Trà Vinh'),
+(61, 'Tuyên Quang'),
+(62, 'Vĩnh Long'),
+(63, 'Vĩnh Phúc'),
+(64, 'Yên Bái');
 
 -- --------------------------------------------------------
 
@@ -112,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `UID` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(50) NOT NULL,
   `Password` varchar(64) NOT NULL,
-  `Type` int(11) NOT NULL DEFAULT '0',
+  `Type` int(11) NOT NULL DEFAULT '0' COMMENT 'Account type',
   `Status` int(2) NOT NULL DEFAULT '1' COMMENT '0 = Inactive; 1 = Active',
   `Email` varchar(50) NOT NULL,
   `Name` varchar(256) NOT NULL,
@@ -124,5 +220,42 @@ CREATE TABLE IF NOT EXISTS `User` (
   `Category` varchar(50) DEFAULT NULL COMMENT 'Employer',
   `Size` int(11) DEFAULT NULL COMMENT 'Employer',
   PRIMARY KEY (`UID`),
-  UNIQUE KEY `username` (`Username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  UNIQUE KEY `username` (`Username`),
+  KEY `RID` (`RID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `User`
+--
+
+INSERT INTO `User` (`UID`, `Username`, `Password`, `Type`, `Status`, `Email`, `Name`, `RID`, `Address`, `Description`, `Sex`, `Birthday`, `Category`, `Size`) VALUES
+(11, 'user1', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user1new@example.com', 'User Mot', 1, 'user 1 address', 'user 1 description', 1, '2012-12-12', NULL, NULL),
+(12, 'user2', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user2new@example.com', 'User 2', 24, 'user 2 address', 'user 2 description new', 0, NULL, 'IT', 1),
+(13, 'user3', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user3@example.com', 'Nguyen Van Ba', 19, 'user 3 address', 'user 3 desc', 0, '0000-00-00', NULL, NULL),
+(14, 'user4', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user4@example.com', 'cty tnhh 4`', 18, 'address 4', 'user 4 desc', 0, NULL, 'IT', 2),
+(15, 'user5', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user5@example.com', 'Thím N', 52, 'address 5', 'desc 5', 1, '0000-00-00', NULL, NULL),
+(16, 'user6', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user6@example.com', 'Six Coporation', 7, 'address 6', 'desc 6', 0, NULL, 'Banking', 3);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `CV`
+--
+ALTER TABLE `CV`
+  ADD CONSTRAINT `CV_ibfk_1` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `CV_ibfk_2` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Job`
+--
+ALTER TABLE `Job`
+  ADD CONSTRAINT `Job_ibfk_1` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Job_ibfk_2` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `User`
+--
+ALTER TABLE `User`
+  ADD CONSTRAINT `User_ibfk_1` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON DELETE SET NULL ON UPDATE CASCADE;
