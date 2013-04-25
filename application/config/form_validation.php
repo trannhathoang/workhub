@@ -34,7 +34,7 @@ $config = array(
       array(
         'field' => 'region',
         'label' => 'Region',
-        'rules' => 'greater_than[1]'),
+        'rules' => 'greater_than[0]'),
       array(
         'field' => 'address',
         'label' => 'Address',
@@ -69,7 +69,7 @@ $config = array(
       array(
         'field' => 'region',
         'label' => 'Region',
-        'rules' => 'greater_than[1]'),
+        'rules' => 'greater_than[0]'),
       array(
         'field' => 'address',
         'label' => 'Address',
@@ -100,7 +100,7 @@ $config = array(
       array(
         'field' => 'email',
         'label' => 'Email',
-        'rules' => 'trim|required|valid_email|is_unique[User.Email]'),
+        'rules' => 'trim|required|valid_email'),
       array(
         'field' => 'name',
         'label' => 'Name',
@@ -116,7 +116,7 @@ $config = array(
       array(
         'field' => 'region',
         'label' => 'Region',
-        'rules' => 'greater_than[1]'),
+        'rules' => 'greater_than[0]'),
       array(
         'field' => 'address',
         'label' => 'Address',

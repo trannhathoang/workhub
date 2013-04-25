@@ -1,5 +1,9 @@
 <h2>Profile</h2>
 
+<?php
+if (isset($updated) && $updated == TRUE) echo "<p>Profile is updated</p>";
+echo validation_errors();
+?>
 <?php echo form_open('applicant/verify_profile'); ?>
 
   <label for="type">Account type</label>

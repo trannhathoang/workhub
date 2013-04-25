@@ -53,6 +53,7 @@ class Home extends CI_Controller {
       $this->data['user'] = $row;
     }
     $this->data['regions'] = $this->region_model->get_regions();
+    $this->data['updated'] = $this->session->flashdata('profile_updated');
     $this->_view('profile_view');
   }
 
