@@ -87,4 +87,44 @@ $config = array(
         'label' => 'Description',
         'rules' => 'max_length[512]')
       ),
-    );
+
+   'profile_app' => array(
+      array(
+        'field' => 'password',
+        'label' => 'Password',
+        'rules' => 'min_length[6]|max_length[64]'),
+      array(
+        'field' => 'confirm',
+        'label' => 'Password confirmation',
+        'rules' => 'matches[password]'),
+      array(
+        'field' => 'email',
+        'label' => 'Email',
+        'rules' => 'trim|required|valid_email|is_unique[User.Email]'),
+      array(
+        'field' => 'name',
+        'label' => 'Name',
+        'rules' => 'trim|required'),
+      array(
+        'field' => 'sex',
+        'label' => 'Sex',
+        'rules' => 'required'),
+      array(
+        'field' => 'birthday',
+        'label' => 'Birthday',
+        'rules' => 'max_length[10]'),
+      array(
+        'field' => 'region',
+        'label' => 'Region',
+        'rules' => 'greater_than[1]'),
+      array(
+        'field' => 'address',
+        'label' => 'Address',
+        'rules' => 'max_length[256]'),
+      array(
+        'field' => 'description',
+        'label' => 'Description',
+        'rules' => 'max_length[512]')
+      )
+
+   );

@@ -9,8 +9,10 @@ class Home extends CI_Controller {
   function __construct() {
     parent::__construct();
     $this->load->library('session');
+    $this->load->helper('form');
     $this->load->helper('url');
-    $this->load->model('user_model');
+    $this->load->model('user_model', '', TRUE);
+    $this->load->model('region_model', '', TRUE);
 
     $sess_data = $this->session->userdata('logged_in');
     $this->data['uid'] = $sess_data['uid'];
@@ -50,6 +52,7 @@ class Home extends CI_Controller {
     foreach ($result as $row) {
       $this->data['user'] = $row;
     }
+    $this->data['regions'] = $this->region_model->get_regions();
     $this->_view('profile_view');
   }
 
