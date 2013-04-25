@@ -16,7 +16,7 @@ class User_model extends CI_Model {
     $query = $this->db->get();
 
     if($query->num_rows() == 1) {
-      return $query->result();
+      return $query->result_array();
     } else {
       return FALSE;
     }
@@ -46,6 +46,16 @@ class User_model extends CI_Model {
     $this->db->trans_complete();
 
     return $ins_result;
+  }
+
+  public function get_user($uid) {
+    $query = $this->db->get_where('User', array('UID' => $uid), 1);
+
+    if($query->num_rows() == 1) {
+      return $query->result_array();
+    } else {
+      return FALSE;
+    }
   }
 
 }

@@ -26,9 +26,9 @@ class Signup extends CI_Controller {
     $this->load->view('templates/header.php', $data);
 
     if ($acctype == EMPLOYER) {
-      $this->load->view('signup_emp_view', $data);
+      $this->load->view('employer/signup_view', $data);
     } else {
-      $this->load->view('signup_app_view', $data);
+      $this->load->view('applicant/signup_view', $data);
     }
 
     $this->load->view('templates/footer.php', $data);

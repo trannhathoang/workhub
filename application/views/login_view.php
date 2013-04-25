@@ -1,6 +1,6 @@
 <h1>Login</h1>
 <?php echo validation_errors(); ?>
-<?php echo form_open('verifylogin'); ?>
+<?php echo form_open('verify_login'); ?>
   <label for="username">Username</label>
   <input type="text" size="20" id="username" name="username"
     value="<?php echo set_value('username'); ?>"/>

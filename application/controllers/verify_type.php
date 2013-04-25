@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /* Verify account type */
-class Verifytype extends CI_Controller {
+class Verify_type extends CI_Controller {
 
   function index() {
     $this->load->library('form_validation');

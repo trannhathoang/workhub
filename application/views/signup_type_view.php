@@ -11,7 +11,7 @@
 
     <?php echo validation_errors(); ?>
 
-    <?php echo form_open('verifytype'); ?>
+    <?php echo form_open('verify_type'); ?>
       <input type="radio" name="type" value="applicant" checked="checked" />Applicant
       <input type="radio" name="type" value="employer" />Employer
       <br/>

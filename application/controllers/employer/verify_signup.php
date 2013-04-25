@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/* Verify applicant info */
-class Verifyainfo extends CI_Controller {
+/* Verify employer info */
+class Verify_signup extends CI_Controller {
 
   function __construct() {
     parent::__construct();
@@ -13,13 +13,13 @@ class Verifyainfo extends CI_Controller {
     $this->load->library('form_validation');
     $this->load->helper('url');
 
-    if ($this->form_validation->run('signup_app') === FALSE || $this->check_signup() === FALSE) {
+    if ($this->form_validation->run('signup_emp') === FALSE || $this->check_signup() === FALSE) {
       //Field validation failed
       $data['title'] = 'Enter information';
       $data['regions'] = $this->region_model->get_regions();
 
       $this->load->view('templates/header.php', $data);
-      $this->load->view('signup_app_view', $data);
+      $this->load->view('employer/signup_view', $data);
       $this->load->view('templates/footer.php', $data);
     } else {
       //Go to login view
@@ -28,10 +28,9 @@ class Verifyainfo extends CI_Controller {
   }
 
   function check_signup() {
-    $sex = strcmp($this->input->post('sex'), 'male') == 0 ? 0 : 1;
     $data = array('Username' => $this->input->post('username'),
                   'Password' => MD5($this->input->post('password')),
-                  'Type' => APPLICANT,
+                  'Type' => EMPLOYER,
                   'Status' => ACTIVE,
                   'Email' => $this->input->post('email'),
                   'Name' => $this->input->post('name'),
@@ -39,11 +38,11 @@ class Verifyainfo extends CI_Controller {
                   'Address' => $this->input->post('address'),
                   'Description' => $this->input->post('description'),
                   /* Applicant fields */
-                  'Sex' => $sex,
-                  'Birthday' => $this->input->post('birthday'),
+                  'Sex' => 0,
+                  'Birthday' => NULL,
                   /* Employer field */
-                  'Category' => NULL,
-                  'Size' => NULL);
+                  'Category' => $this->input->post('category'),
+                  'Size' => $this->input->post('size'));
 
     // Field validation succeeded. Validate against database
     $result = $this->user_model->signup($data);

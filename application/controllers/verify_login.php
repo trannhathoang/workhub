@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Verifylogin extends CI_Controller {
+class Verify_login extends CI_Controller {
 
   function __construct() {
     parent::__construct();
@@ -39,9 +39,9 @@ class Verifylogin extends CI_Controller {
     if ($result) {
       foreach ($result as $row) {
         $sess_data = array(
-            'uid' => $row->UID,
-            'username' => $row->Username,
-            'type' => $row->Type);
+            'uid' => $row['UID'],
+            'username' => $row['Username'],
+            'type' => $row['Type']);
         $this->session->set_userdata('logged_in', $sess_data);
       }
       return TRUE;

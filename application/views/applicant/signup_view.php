@@ -2,7 +2,7 @@
 
 <?php echo validation_errors(); ?>
 
-<?php echo form_open('verifyeinfo'); ?>
+<?php echo form_open('applicant/verify_signup'); ?>
   <label for="username">Username</label>
   <input type="text" size="20" id="username" name="username"
     value="<?php echo set_value('username'); ?>"/>
@@ -26,8 +26,18 @@
     value="<?php echo set_value('name'); ?>"/>
   <br/>
 
+  <label for="sex">Sex</label>
+  <input type="radio" name="sex" value="male" checked="checked" />Male
+  <input type="radio" name="sex" value="female" />Female
+  <br/>
+
+  <label for="birthday">Birthday</label>
+  <input type="text" size="20" id="birthday" name="birthday"
+    value="<?php echo set_value('birthday'); ?>"/>
+  <br/>
+
   <label for="region">Region</label>
-  <select name="region" value="24">
+  <select name="region">
     <?php
     foreach ($regions as $row) {
       echo '<option value="'.$row['RID'].'">'.$row['Name'].'</option>';
@@ -39,16 +49,6 @@
   <label for="address">Address</label>
   <input type="text" size="40" id="address" name="address"
     value="<?php echo set_value('address'); ?>"/>
-  <br/>
-
-  <label for="category">Category</label>
-  <input type="text" size="20" id="category" name="category"
-    value="<?php echo set_value('category'); ?>"/>
-  <br/>
-
-  <label for="size">Size</label>
-  <input type="text" size="20" id="size" name="size"
-    value="<?php echo set_value('size'); ?>"/>
   <br/>
 
   <label for="description">Description</label>
