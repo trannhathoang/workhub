@@ -1,0 +1,77 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+/* Verify job */
+class Verify_job extends CI_Controller {
+  
+  private $data;
+
+  function __construct() {
+    parent::__construct();
+    $this->load->library('session');
+    $this->load->library('form_validation');
+    $this->load->helper('url');
+    $this->load->model('region_model', '', TRUE);
+    $this->load->model('job_model', '', TRUE);
+
+    $sess_data = $this->session->userdata('logged_in');
+    $this->data['uid'] = $sess_data['uid'];
+    $this->data['username'] = $sess_data['username'];
+    $this->data['type'] = $sess_data['type'];
+  }
+
+  function index() {
+    $this->load->library('form_validation');
+    $this->load->helper('url');
+
+    if ($this->form_validation->run('job') === FALSE || $this->save_job() === FALSE) {
+      // Prepare data
+      $this->data['title'] = 'Edit Job';
+      $this->data['regions'] = $this->region_model->get_regions();
+      $this->data['job'] = NULL;
+      $jid = $this->input->post('id');
+      if ($jid > 0) {
+        $query = $this->job_model->get_job($jid);
+        foreach ($query as $row) {
+          $this->data['job'] = $row;
+        }
+      }
+
+      // Show view
+      $this->load->view('templates/header.php', $this->data);
+      $this->load->view('acc_view', $this->data);
+      $this->load->view('employer/nav_view', $this->data);
+
+      $this->load->view('employer/job_view', $this->data);
+
+      $this->load->view('templates/footer.php', $this->data);
+    } else {
+      $this->session->set_flashdata('job_saved', TRUE);
+      redirect('home/managejobs', 'refresh');
+    }
+  }
+
+  function save_job() {
+    $jid = $this->input->post('id');
+    $newdata = array();
+
+    $newdata['UID'] = $this->data['uid'];
+
+    $name = $this->input->post('name');
+    if (strlen($name) > 0) {
+      $newdata['Name'] = $name;
+    } else {
+      $newdata['Name'] = 'Untitled job';
+    }
+
+    $newdata['Category'] = $this->input->post('category');
+    $newdata['MinSalary'] = $this->input->post('min_salary');
+    $newdata['MaxSalary'] = $this->input->post('max_salary');
+    $newdata['ExpiredDate'] = $this->input->post('expire');
+    $newdata['RID'] = $this->input->post('region');
+    $newdata['Address'] = $this->input->post('address');
+    $newdata['Description'] = $this->input->post('description');
+
+    return $this->job_model->save_job($jid, $newdata);
+  }
+
+}

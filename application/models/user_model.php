@@ -58,4 +58,14 @@ class User_model extends CI_Model {
     }
   }
 
+  public function update_user($uid, $userdata) {
+    $this->db->where('UID', $uid);
+    $this->db->update('User', $userdata);
+    if ($this->db->affected_rows() > 0) {
+      return TRUE;
+    } else {
+      return FALSE;
+    }
+  }
+
 }

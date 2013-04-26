@@ -4,6 +4,7 @@
 if (isset($updated) && $updated == TRUE) echo "<p>Profile is updated</p>";
 echo validation_errors();
 ?>
+
 <?php echo form_open('employer/verify_profile'); ?>
 
   <label for="type">Account type</label>
@@ -17,20 +18,20 @@ echo validation_errors();
   <br/>
 
   <label for="password">Password</label>
-  <input type="password" size="20" id="password" name="password"/>
+  <input type="password" size="20" name="password"/>
   <br/>
 
   <label for="confirm">Confirm password</label>
-  <input type="password" size="20" id="confirm" name="confirm"/>
+  <input type="password" size="20" name="confirm"/>
   <br/>
 
   <label for="email">Email</label>
-  <input type="text" size="20" id="email" name="email"
+  <input type="text" size="20" name="email"
     value="<?php echo $user['Email']; ?>"/>
   <br/>
 
   <label for="name">Name</label>
-  <input type="text" size="20" id="name" name="name"
+  <input type="text" size="20" name="name"
     value="<?php echo $user['Name']; ?>"/>
   <br/>
 
@@ -45,22 +46,22 @@ echo validation_errors();
   <br/>
 
   <label for="address">Address</label>
-  <input type="text" size="40" id="address" name="address"
+  <input type="text" size="40" name="address"
     value="<?php echo $user['Address']; ?>"/>
   <br/>
 
    <label for="category">Category</label>
-  <input type="text" size="20" id="category" name="category"
+  <input type="text" size="20" name="category"
     value="<?php echo $user['Category']; ?>"/>
   <br/>
 
   <label for="size">Size</label>
-  <input type="text" size="20" id="size" name="size"
+  <input type="text" size="20" name="size"
     value="<?php echo $user['Size']; ?>"/>
   <br/>
 
- <label for="description">Description</label>
-  <textarea rows="5" cols="60" id="description" name="description"><?php echo $user['Description']; ?></textarea>
+  <label for="description">Description</label>
+  <textarea rows="5" cols="60" name="description"><?php echo $user['Description']; ?></textarea>
   <br/>
 
   <input type="submit" value="Update"/>

@@ -8,6 +8,8 @@ class Verify_profile extends CI_Controller {
   function __construct() {
     parent::__construct();
     $this->load->library('session');
+    $this->load->library('form_validation');
+    $this->load->helper('url');
     $this->load->model('region_model', '', TRUE);
     $this->load->model('user_model','',TRUE);
 
@@ -18,9 +20,6 @@ class Verify_profile extends CI_Controller {
   }
 
   function index() {
-    $this->load->library('form_validation');
-    $this->load->helper('url');
-
     if ($this->form_validation->run('profile_emp') === FALSE || $this->update_profile() === FALSE) {
       // Prepare data
       $this->data['title'] = 'Profile';
@@ -33,13 +32,10 @@ class Verify_profile extends CI_Controller {
       // Show form
       $this->load->view('templates/header.php', $this->data);
       $this->load->view('acc_view', $this->data);
-      if ($this->data['type'] == EMPLOYER) {
-        $this->load->view('employer/nav_view', $this->data);
-        $this->load->view('employer/profile_view', $this->data);
-      } else {
-        $this->load->view('applicant/nav_view', $this->data);
-        $this->load->view('applicant/profile_view', $this->data);
-      }
+      $this->load->view('employer/nav_view', $this->data);
+
+      $this->load->view('employer/profile_view', $this->data);
+
       $this->load->view('templates/footer.php', $this->data);
     } else {
       $this->session->set_flashdata('profile_updated', TRUE);
@@ -65,10 +61,7 @@ class Verify_profile extends CI_Controller {
     $newdata['Size'] = $this->input->post('size');
     $newdata['Description'] = $this->input->post('description');
 
-    $this->db->where('UID', $this->data['uid']);
-    $this->db->update('User', $newdata);
-
-    return TRUE;
+    return $this->user_model->update_user($this->data['uid'], $newdata);
   }
 
 }

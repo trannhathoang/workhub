@@ -73,7 +73,7 @@ class Home extends CI_Controller {
     $this->_view('invitations_view');
   }
 
- /* Check session and load a view of applicant or employer. */
+  /* Check session and load a view of applicant or employer. */
   function _view($view = 'home_view') {
     if($this->session->userdata('logged_in')) {
       $this->load->view('templates/header.php', $this->data);
