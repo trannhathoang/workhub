@@ -20,15 +20,12 @@ class Verify_job extends CI_Controller {
   }
 
   function index() {
-    $this->load->library('form_validation');
-    $this->load->helper('url');
-
-    if ($this->form_validation->run('job') === FALSE || $this->save_job() === FALSE) {
+    $jid = $this->input->post('id');
+    if ($this->form_validation->run('job') === FALSE || $this->save_job($jid) === FALSE) {
       // Prepare data
       $this->data['title'] = 'Edit Job';
       $this->data['regions'] = $this->region_model->get_regions();
       $this->data['job'] = NULL;
-      $jid = $this->input->post('id');
       if ($jid > 0) {
         $query = $this->job_model->get_job($jid);
         foreach ($query as $row) {
@@ -46,12 +43,15 @@ class Verify_job extends CI_Controller {
       $this->load->view('templates/footer.php', $this->data);
     } else {
       $this->session->set_flashdata('job_saved', TRUE);
-      redirect('home/managejobs', 'refresh');
+      if ($jid > 0) {
+        redirect('employer/job/edit/'.$jid, 'refresh');
+      } else {
+        redirect('home/managejobs', 'refresh');
+      }
     }
   }
 
-  function save_job() {
-    $jid = $this->input->post('id');
+  function save_job($jid) {
     $newdata = array();
 
     $newdata['UID'] = $this->data['uid'];
@@ -66,11 +66,19 @@ class Verify_job extends CI_Controller {
     $newdata['Category'] = $this->input->post('category');
     $newdata['MinSalary'] = $this->input->post('min_salary');
     $newdata['MaxSalary'] = $this->input->post('max_salary');
-    $newdata['ExpiredDate'] = $this->input->post('expire');
+
+    $expire = $this->input->post('expire');
+    if (strlen($expire) > 0) {
+      $newdata['ExpiredDate'] = $expire;
+    } else {
+      $newdata['ExpiredDate'] = NULL;
+    }
+
     $newdata['RID'] = $this->input->post('region');
     $newdata['Address'] = $this->input->post('address');
     $newdata['Description'] = $this->input->post('description');
 
+    // $newdata MUST NOT have 'JID' field
     return $this->job_model->save_job($jid, $newdata);
   }
 

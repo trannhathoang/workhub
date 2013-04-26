@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 25, 2013 at 09:17 AM
+-- Generation Time: Apr 27, 2013 at 01:42 AM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `Job` (
   `JID` int(11) NOT NULL AUTO_INCREMENT,
   `UID` int(11) NOT NULL COMMENT 'Employer ID',
   `Name` varchar(128) NOT NULL,
+  `Status` int(2) NOT NULL DEFAULT '1' COMMENT '-1 = disabled; 0 = inactive; 1 = active',
   `Category` varchar(255) DEFAULT NULL,
   `MinSalary` int(11) DEFAULT NULL,
   `MaxSalary` int(11) DEFAULT NULL,
@@ -101,20 +102,31 @@ CREATE TABLE IF NOT EXISTS `Job` (
   `ExpiredDate` date DEFAULT NULL,
   `RID` int(11) NOT NULL DEFAULT '0' COMMENT 'Region ID',
   `Area` varchar(45) DEFAULT NULL,
+  `Address` varchar(256) DEFAULT NULL,
   `Description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`JID`),
   KEY `Job_Region_idx` (`RID`),
   KEY `Job_Company1_idx` (`UID`),
   KEY `Job_BroadRegion_idx` (`Area`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `Job`
 --
 
-INSERT INTO `Job` (`JID`, `UID`, `Name`, `Category`, `MinSalary`, `MaxSalary`, `EduReq`, `SkillReq`, `LangReq`, `ExpReq`, `Location`, `ExpiredDate`, `RID`, `Area`, `Description`) VALUES
-(1, 12, 'Tester', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, NULL, NULL),
-(2, 12, 'Manager', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, NULL, NULL);
+INSERT INTO `Job` (`JID`, `UID`, `Name`, `Status`, `Category`, `MinSalary`, `MaxSalary`, `EduReq`, `SkillReq`, `LangReq`, `ExpReq`, `Location`, `ExpiredDate`, `RID`, `Area`, `Address`, `Description`) VALUES
+(1, 12, 'Tester', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, NULL, NULL, NULL),
+(2, 12, 'Manager', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, NULL, NULL, NULL),
+(3, 12, 'Field runner', 1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '', ''),
+(4, 12, 'Bao ve', 1, 'Security', 2000000, 5000000, NULL, NULL, NULL, NULL, NULL, NULL, 16, NULL, '', ''),
+(5, 12, 'Gate Guard', 1, 'Security', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 20, NULL, '', ''),
+(6, 12, 'Body guard', 1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 19, NULL, '', ''),
+(7, 12, 'Safe guard', 1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '', ''),
+(8, 12, 'Safe guard', 1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '', ''),
+(9, 12, 'Safe guard', 1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '', ''),
+(10, 12, 'Saleman', 1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 18, NULL, '', ''),
+(11, 12, 'Clerk', 1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '', ''),
+(12, 12, 'Writer', 1, 'IT', 1000000, 5000000, NULL, NULL, NULL, NULL, NULL, '2014-04-14', 1, NULL, 'address job 6', 'desc');
 
 -- --------------------------------------------------------
 

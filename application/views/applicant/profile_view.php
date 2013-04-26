@@ -7,12 +7,12 @@ echo validation_errors();
 <?php echo form_open('applicant/verify_profile'); ?>
 
   <label for="type">Account type</label>
-  <input type="text" size="20" name="type" disabled
+  <input type="text" size="20" name="type" readonly
     value="Applicant"/>
   <br/>
 
   <label for="username">Username</label>
-  <input type="text" size="20" name="username" disabled
+  <input type="text" size="20" name="username" readonly
     value="<?php echo $user['Username'];?>"/>
   <br/>
 

@@ -191,8 +191,8 @@ $config = array(
           'label' => 'Max salary',
           'rules' => 'numeric'),
         array(
-          'field' => 'name',
-          'label' => 'Name',
+          'field' => 'expire',
+          'label' => 'Expire date',
           'rules' => 'max_length[10]'),
         array(
           'field' => 'region',
