@@ -6,7 +6,7 @@ class Job_model extends CI_Model {
     $this->load->database();
   }
 
-  /* Get array of jobs */
+  /* Get array of jobs of a specific employer */
   public function get_jobs($uid) {
     $this->db->where('UID', $uid);
     $query = $this->db->get('Job');
@@ -17,7 +17,12 @@ class Job_model extends CI_Model {
   public function get_job($jid) {
     $this->db->where('JID', $jid);
     $query = $this->db->get('Job');
-    return $query->result_array();
+
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    } else {
+      return NULL;
+    }
   }
 
   /* Save new or update job. If $jid <= 0, job will be newly created.
