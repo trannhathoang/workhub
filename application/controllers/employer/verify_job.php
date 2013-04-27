@@ -64,8 +64,19 @@ class Verify_job extends CI_Controller {
     }
 
     $newdata['Category'] = $this->input->post('category');
-    $newdata['MinSalary'] = $this->input->post('min_salary');
-    $newdata['MaxSalary'] = $this->input->post('max_salary');
+
+    $min_salary = $this->input->post('min_salary');
+    if (strlen($min_salary) > 0) {
+      $newdata['MinSalary'] = $min_salary;
+    } else {
+      $newdata['MinSalary'] = NULL;
+    }
+    $max_salary = $this->input->post('max_salary');
+    if (strlen($min_salary) > 0) {
+      $newdata['MaxSalary'] = $max_salary;
+    } else {
+      $newdata['MaxSalary'] = NULL;
+    }
 
     $expire = $this->input->post('expire');
     if (strlen($expire) > 0) {
