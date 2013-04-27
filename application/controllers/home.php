@@ -14,6 +14,7 @@ class Home extends CI_Controller {
     $this->load->model('user_model', '', TRUE);
     $this->load->model('region_model', '', TRUE);
     $this->load->model('job_model', '', TRUE);
+    $this->load->model('cv_model', '', TRUE);
 
     $sess_data = $this->session->userdata('logged_in');
     $this->data['uid'] = $sess_data['uid'];
@@ -51,6 +52,8 @@ class Home extends CI_Controller {
   /* Applicant only */
   function managecvs() {
     $this->data['title'] = 'Manage CVs';
+    $this->data['cvs'] = $this->cv_model->get_cvs($this->data['uid']);
+    $this->data['discarded'] = $this->session->flashdata('cv_discarded');
     $this->_view('managecvs_view');
   }
 

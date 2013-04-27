@@ -175,6 +175,10 @@ $config = array(
           'label' => 'Name',
           'rules' => 'trim|required|max_length[128]'),
         array(
+          'field' => 'status',
+          'label' => 'Status',
+          'rules' => 'is_natural|greater_than[-1]|less_than[2]'),
+        array(
           'field' => 'category',
           'label' => 'Category',
           'rules' => 'max_length[255]'),
@@ -206,5 +210,48 @@ $config = array(
           'field' => 'description',
           'label' => 'Description',
           'rules' => 'max_length[1024]')
+        ),
+
+    'cv' => array(
+        array(
+          'field' => 'id',
+          'label' => 'ID',
+          'rules' => 'is_natural'),
+        array(
+          'field' => 'subject',
+          'label' => 'Subject',
+          'rules' => 'trim|required|max_length[128]'),
+        array(
+          'field' => 'status',
+          'label' => 'Status',
+          'rules' => 'is_natural|greater_than[-1]|less_than[2]'),
+        array(
+          'field' => 'category',
+          'label' => 'Category',
+          'rules' => 'max_length[255]'),
+        array(
+          'field' => 'edu_lev',
+          'label' => 'Education level',
+          'rules' => 'max_length[50]'),
+        array(
+          'field' => 'skill',
+          'label' => 'Skills',
+          'rules' => 'max_length[255]'),
+        array(
+          'field' => 'language',
+          'label' => 'Language',
+          'rules' => 'max_length[255]'),
+        array(
+          'field' => 'exp',
+          'label' => 'Experience',
+          'rules' => 'max_length[10]'),
+        array(
+          'field' => 'region',
+          'label' => 'Region',
+          'rules' => 'greater_than[0]'),
+        array(
+          'field' => 'add_info',
+          'label' => 'Additional information',
+          'rules' => 'max_length[255]')
         )
     );
