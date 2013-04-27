@@ -63,6 +63,7 @@ class Verify_job extends CI_Controller {
       $newdata['Name'] = 'Untitled job';
     }
 
+    $newdata['Status'] = $this->input->post('status');
     $newdata['Category'] = $this->input->post('category');
 
     $min_salary = $this->input->post('min_salary');

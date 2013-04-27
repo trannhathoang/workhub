@@ -17,6 +17,13 @@ echo validation_errors();
     value="<?php echo ($job != NULL ? $job['Name'] : set_value('name')); ?>"/>
   <br/>
 
+  <label for="status">Status</label>
+  <select name="status">
+    <option value="<?php echo ACTIVE; ?>" <?php echo ($job != NULL && $job['Status'] == ACTIVE ? 'selected' : ''); ?>>Active</option>
+    <option value="<?php echo INACTIVE; ?>" <?php echo ($job != NULL && $job['Status'] != ACTIVE ? 'selected' : ''); ?>>Inactive</option>
+  </select>
+  </br>
+
   <label for="category">Category</label>
   <input type="text" size="20" name="category"
     value="<?php echo ($job != NULL ? $job['Category'] : set_value('category')); ?>"/>
