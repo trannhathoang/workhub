@@ -49,13 +49,14 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 define('APPLICANT', 0);
 define('EMPLOYER', 1);
 
-/* Account status */
-define('INACTIVE', 0);
-define('ACTIVE', 1);
-
 /* Sex - use for applicant */
 define('MALE', 0);
 define('FEMALE', 1);
+
+/* Status */
+define('DISABLED', -1);
+define('INACTIVE', 0);
+define('ACTIVE', 1);
 
 
 /* End of file constants.php */

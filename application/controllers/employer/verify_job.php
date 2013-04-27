@@ -27,7 +27,7 @@ class Verify_job extends CI_Controller {
       $this->data['regions'] = $this->region_model->get_regions();
       $this->data['job'] = NULL;
       if ($jid > 0) {
-        $query = $this->job_model->get_job($jid);
+        $query = $this->job_model->get_job($jid, $this->data['uid']);
         foreach ($query as $row) {
           $this->data['job'] = $row;
         }
@@ -79,7 +79,7 @@ class Verify_job extends CI_Controller {
     $newdata['Description'] = $this->input->post('description');
 
     // $newdata MUST NOT have 'JID' field
-    return $this->job_model->save_job($jid, $newdata);
+    return $this->job_model->save_job($jid, $this->data['uid'], $newdata);
   }
 
 }

@@ -14,8 +14,9 @@ class Job_model extends CI_Model {
   }
 
   /* Get specific job. Use foreach to retrieve job from query. */
-  public function get_job($jid) {
-    $this->db->where('JID', $jid);
+  public function get_job($jid, $uid) {
+    $where = array('JID' => $jid, 'UID' => $uid);
+    $this->db->where($where);
     $query = $this->db->get('Job');
 
     if ($query->num_rows() > 0) {
@@ -27,13 +28,35 @@ class Job_model extends CI_Model {
 
   /* Save new or update job. If $jid <= 0, job will be newly created.
      The array $jobdata MUST NOT have index 'JID'. */
-  public function save_job($jid, $jobdata) {
+  public function save_job($jid, $uid, $jobdata) {
     if ($jid > 0) {
-      $this->db->where('JID', $jid);
+      $where = array('JID' => $jid, 'UID' => $uid);
+      $this->db->where($where);
       $this->db->update('Job', $jobdata);
     } else {
+      $jobdata['UID'] = $uid;
       $this->db->insert('Job', $jobdata);
     }
+
+    if ($this->db->affected_rows() > 0) {
+      return TRUE;
+    } else {
+      return FALSE;
+    }
+  }
+
+  /* Disable a "discarded" job */
+  public function discard_job($jid, $uid) {
+    $data = array('Status' => DISABLED);
+
+    if ($jid > 0) {
+      $where = array('JID' => $jid, 'UID' => $uid);
+      $this->db->where($where);
+      $this->db->update('Job', $data);
+    } else {
+      return FALSE;
+    }
+
     if ($this->db->affected_rows() > 0) {
       return TRUE;
     } else {

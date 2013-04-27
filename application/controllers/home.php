@@ -64,6 +64,7 @@ class Home extends CI_Controller {
   function managejobs() {
     $this->data['title'] = 'Manage Jobs';
     $this->data['jobs'] = $this->job_model->get_jobs($this->data['uid']);
+    $this->data['discarded'] = $this->session->flashdata('job_discarded');
     $this->_view('managejobs_view');
   }
 
