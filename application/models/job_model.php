@@ -45,9 +45,9 @@ class Job_model extends CI_Model {
     }
   }
 
-  /* Disable a "discarded" job */
-  public function discard_job($jid, $uid) {
-    $data = array('Status' => DISABLED);
+  /* Set status of a job to ACTIVE, INACTIVE or DISABLED */
+  public function set_status($jid, $uid, $status) {
+    $data = array('Status' => $status);
 
     if ($jid > 0) {
       $where = array('JID' => $jid, 'UID' => $uid);

@@ -93,7 +93,7 @@ class Job extends CI_Controller {
 
     if ($this->data['job'] != NULL) {
       // Disable the job
-      if ($this->job_model->discard_job($jid, $this->data['uid'])) {
+      if ($this->job_model->set_status($jid, $this->data['uid'], DISABLED)) {
         $this->session->set_flashdata('job_discarded', TRUE);
       }
     }
