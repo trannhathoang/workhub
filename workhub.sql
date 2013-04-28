@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2013 at 06:47 AM
+-- Generation Time: Apr 28, 2013 at 03:43 PM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -88,16 +88,14 @@ CREATE TABLE IF NOT EXISTS `CV` (
   KEY `CV_Applicant1_idx` (`UID`),
   KEY `UID` (`UID`),
   KEY `RID` (`RID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `CV`
 --
 
 INSERT INTO `CV` (`CID`, `UID`, `Subject`, `Status`, `EduLev`, `Skill`, `Language`, `Exp`, `AddInfo`, `RID`) VALUES
-(1, 11, 'cv1', -1, 'master', 'ultimate', 'English', '0', 'too proo', 24),
-(2, 11, 'cv1', 1, 'master', 'ultimate', 'English', '0', 'too pro', 24),
-(3, 11, 'cv2', 1, 'Doctor', 'blink', 'Laos', '0', '', 16);
+(1, 11, 'cv1', 1, '12', '', '', '', '', 24);
 
 -- --------------------------------------------------------
 
@@ -127,8 +125,8 @@ CREATE TABLE IF NOT EXISTS `Job` (
   `UID` int(11) NOT NULL COMMENT 'Employer ID',
   `Name` varchar(128) NOT NULL,
   `Status` int(2) NOT NULL DEFAULT '1' COMMENT '-1 = disabled; 0 = inactive; 1 = active',
-  `Level` int(11) DEFAULT NULL COMMENT 'Job level',
-  `Category` int(11) DEFAULT NULL,
+  `JLID` int(11) NOT NULL DEFAULT '1',
+  `CAID` int(11) NOT NULL DEFAULT '1',
   `MinSalary` int(11) DEFAULT NULL,
   `MaxSalary` int(11) DEFAULT NULL,
   `EduReq` varchar(256) DEFAULT NULL,
@@ -142,22 +140,20 @@ CREATE TABLE IF NOT EXISTS `Job` (
   PRIMARY KEY (`JID`),
   KEY `Job_Region_idx` (`RID`),
   KEY `Job_Company1_idx` (`UID`),
-  KEY `Level` (`Level`),
-  KEY `Category` (`Category`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+  KEY `JLID` (`JLID`),
+  KEY `CAID` (`CAID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `Job`
 --
 
-INSERT INTO `Job` (`JID`, `UID`, `Name`, `Status`, `Level`, `Category`, `MinSalary`, `MaxSalary`, `EduReq`, `SkillReq`, `LangReq`, `ExpReq`, `ExpiredDate`, `RID`, `Address`, `Description`) VALUES
-(1, 12, 'Tester', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2013-06-01', 24, '', ''),
-(2, 12, 'Manager', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, NULL, NULL),
-(3, 12, 'Field runner', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '', ''),
-(4, 12, 'Bao ve', -1, 1, NULL, 2000000, 5000000, NULL, NULL, NULL, NULL, NULL, 16, '', ''),
-(5, 12, 'Gate Guard', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20, '', ''),
-(6, 12, 'Body guard', 1, 1, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 19, '', ''),
-(14, 14, 'Guard', 1, 3, 1, 3000000, 5000000, '12', 'kungfu', 'Vietnamese', '', NULL, 30, 'address 4', 'Guard desc');
+INSERT INTO `Job` (`JID`, `UID`, `Name`, `Status`, `JLID`, `CAID`, `MinSalary`, `MaxSalary`, `EduReq`, `SkillReq`, `LangReq`, `ExpReq`, `ExpiredDate`, `RID`, `Address`, `Description`) VALUES
+(1, 12, 'Job 1', 1, 2, 11, NULL, NULL, '', '', '', '', NULL, 24, '', ''),
+(2, 12, 'Job 2', 1, 2, 1, NULL, NULL, '', '', '', '', NULL, 24, '', ''),
+(3, 14, 'Job 1', 1, 3, 11, NULL, NULL, '', '', '', '', NULL, 24, '', ''),
+(4, 14, 'Job 2', 1, 3, 1, NULL, NULL, '', '', '', '', NULL, 30, '', ''),
+(5, 12, 'Job 3', 1, 10, 11, 20000000, 40000000, '', '', '', '', NULL, 24, '', '');
 
 -- --------------------------------------------------------
 
@@ -314,20 +310,20 @@ INSERT INTO `User` (`UID`, `Username`, `Password`, `Type`, `Status`, `Email`, `N
 -- Constraints for table `CV`
 --
 ALTER TABLE `CV`
-  ADD CONSTRAINT `CV_ibfk_1` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `CV_ibfk_2` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `CV_ibfk_4` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `CV_ibfk_3` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Job`
 --
 ALTER TABLE `Job`
   ADD CONSTRAINT `Job_ibfk_1` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Job_ibfk_2` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Job_ibfk_3` FOREIGN KEY (`Level`) REFERENCES `JobLevel` (`JLID`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Job_ibfk_4` FOREIGN KEY (`Category`) REFERENCES `Category` (`CAID`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `Job_ibfk_5` FOREIGN KEY (`JLID`) REFERENCES `JobLevel` (`JLID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Job_ibfk_6` FOREIGN KEY (`CAID`) REFERENCES `Category` (`CAID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Job_ibfk_7` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `User`
 --
 ALTER TABLE `User`
-  ADD CONSTRAINT `User_ibfk_1` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `User_ibfk_2` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON UPDATE CASCADE;

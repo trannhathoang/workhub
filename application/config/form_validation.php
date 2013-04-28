@@ -174,11 +174,11 @@ $config = array(
         array(
           'field' => 'level',
           'label' => 'Level',
-          'rules' => 'greater_than[0]'),
+          'rules' => 'required|greater_than[0]'),
         array(
           'field' => 'category',
           'label' => 'Category',
-          'rules' => 'greater_than[0]'),
+          'rules' => 'required|greater_than[0]'),
         array(
           'field' => 'min_salary',
           'label' => 'Min salary',

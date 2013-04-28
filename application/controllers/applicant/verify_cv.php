@@ -46,7 +46,7 @@ class Verify_cv extends CI_Controller {
       if ($cid > 0) {
         redirect('applicant/cv/edit/'.$cid, 'refresh');
       } else {
-        redirect('home/managecvs', 'refresh');
+        redirect('applicant/managecvs', 'refresh');
       }
     }
   }

@@ -3,5 +3,5 @@
 <p>Note: All "Applications" relating to this job will be discarded, this cannot be undone!</p>
 <?php
 echo anchor('applicant/cv/discard_confirmed/'.$cv['CID'], 'Discard');
-echo anchor('home/managecvs', 'Cancel');
+echo anchor('applicant/managecvs', 'Cancel');
 ?>

@@ -1,7 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-session_start(); //we need to call PHP's session object to access it through CI
-
 class Home extends CI_Controller {
 
   private $data;
@@ -10,11 +8,8 @@ class Home extends CI_Controller {
     parent::__construct();
     $this->load->library('session');
     $this->load->helper('form');
-    $this->load->helper('url');
     $this->load->model('user_model', '', TRUE);
     $this->load->model('region_model', '', TRUE);
-    $this->load->model('job_model', '', TRUE);
-    $this->load->model('cv_model', '', TRUE);
 
     $sess_data = $this->session->userdata('logged_in');
     $this->data['uid'] = $sess_data['uid'];
@@ -29,13 +24,7 @@ class Home extends CI_Controller {
 
   function logout() {
     $this->session->unset_userdata('logged_in');
-    session_destroy();
     redirect('login', 'refresh');
-  }
-
-  function search() {
-    $this->data['title'] = 'Search';
-    $this->_view('search_view');
   }
 
   function profile() {
@@ -47,34 +36,6 @@ class Home extends CI_Controller {
     $this->data['regions'] = $this->region_model->get_regions();
     $this->data['updated'] = $this->session->flashdata('profile_updated');
     $this->_view('profile_view');
-  }
-
-  /* Applicant only */
-  function managecvs() {
-    $this->data['title'] = 'Manage CVs';
-    $this->data['cvs'] = $this->cv_model->get_cvs($this->data['uid']);
-    $this->data['discarded'] = $this->session->flashdata('cv_discarded');
-    $this->_view('managecvs_view');
-  }
-
-  /* Applicant only */
-  function applications() {
-    $this->data['title'] = 'Applications';
-    $this->_view('applications_view');
-  }
-
-  /* Employer only */
-  function managejobs() {
-    $this->data['title'] = 'Manage Jobs';
-    $this->data['jobs'] = $this->job_model->get_jobs($this->data['uid']);
-    $this->data['discarded'] = $this->session->flashdata('job_discarded');
-    $this->_view('managejobs_view');
-  }
-
-  /* Employer only */
-  function invitations() {
-    $this->data['title'] = 'Invitations';
-    $this->_view('invitations_view');
   }
 
   /* Check session and load a view of applicant or employer. */

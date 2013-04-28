@@ -6,6 +6,32 @@ class Job_model extends CI_Model {
     $this->load->database();
   }
 
+  /* Search jobs by region, category, job level and keyword */
+  public function search_jobs($rid = 0, $caid = 0, $jlid = 0, $keyword = NULL) {
+    $this->db->select('*, Job.Name as Job_Name, JobLevel.Name as JobLevel_Name, Category.Name as Category_Name, Region.Name as Region_Name');
+    $this->db->from('Job');
+    $this->db->join('JobLevel', 'Job.JLID = JobLevel.JLID');
+    $this->db->join('Category', 'Job.CAID = Category.CAID');
+    $this->db->join('Region', 'Job.RID = Region.RID');
+
+    $where = array();
+    if ($rid > 0) $where['Job.RID'] = $rid;
+    if ($caid > 0) $where['Job.CAID'] = $caid;
+    if ($jlid > 0) $where['Job.JLID'] = $jlid;
+    $this->db->where($where);
+
+    if ($keyword != NULL && strlen($keyword) > 0) {
+      $this->db->like('Job.Name', $keyword);
+    }
+
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    } else {
+      return NULL;
+    }
+  }
+
   /* Get array of jobs of a specific employer */
   public function get_jobs($uid) {
     $this->db->where('UID', $uid);

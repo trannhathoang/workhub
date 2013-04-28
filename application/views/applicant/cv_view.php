@@ -62,4 +62,4 @@ echo validation_errors();
 
 </form>
 
-<?php echo anchor('home/managecvs', 'Cancel'); ?>
+<?php echo anchor('applicant/managecvs', 'Cancel'); ?>

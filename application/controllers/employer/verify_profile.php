@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/* Verify applicant profile */
+/* Verify employer profile */
 class Verify_profile extends CI_Controller {
 
   private $data;

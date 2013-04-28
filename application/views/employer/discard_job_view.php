@@ -3,5 +3,5 @@
 <p>Note: All "Invitations" and "Applications" relating to this job will be discarded, this cannot be undone!</p>
 <?php
 echo anchor('employer/job/discard_confirmed/'.$job['JID'], 'Discard');
-echo anchor('home/managejobs', 'Cancel');
+echo anchor('employer/managejobs', 'Cancel');
 ?>

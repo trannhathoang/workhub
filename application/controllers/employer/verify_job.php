@@ -50,7 +50,7 @@ class Verify_job extends CI_Controller {
       if ($jid > 0) {
         redirect('employer/job/edit/'.$jid, 'refresh');
       } else {
-        redirect('home/managejobs', 'refresh');
+        redirect('employer/managejobs', 'refresh');
       }
     }
   }
@@ -68,8 +68,8 @@ class Verify_job extends CI_Controller {
     }
 
     $newdata['Status'] = $this->input->post('status');
-    $newdata['Level'] = $this->input->post('level');
-    $newdata['Category'] = $this->input->post('category');
+    $newdata['JLID'] = $this->input->post('level');
+    $newdata['CAID'] = $this->input->post('category');
 
     $min_salary = $this->input->post('min_salary');
     if (strlen($min_salary) > 0) {
