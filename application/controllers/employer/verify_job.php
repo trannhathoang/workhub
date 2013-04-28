@@ -94,6 +94,10 @@ class Verify_job extends CI_Controller {
     $newdata['RID'] = $this->input->post('region');
     $newdata['Address'] = $this->input->post('address');
     $newdata['Description'] = $this->input->post('description');
+    $newdata['EduReq'] = $this->input->post('edu_req');
+    $newdata['SkillReq'] = $this->input->post('skill_req');
+    $newdata['LangReq'] = $this->input->post('lang_req');
+    $newdata['ExpReq'] = $this->input->post('exp_req');
 
     // $newdata MUST NOT have 'JID' field
     return $this->job_model->save_job($jid, $this->data['uid'], $newdata);

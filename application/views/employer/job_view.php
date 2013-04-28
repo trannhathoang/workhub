@@ -24,6 +24,7 @@ echo validation_errors();
   </select>
   </br>
 
+  <h3>Job Description</h3>
   <label for="level">Level</label>
   <select name="level">
     <?php
@@ -88,6 +89,23 @@ echo validation_errors();
 
   <label for="description">Description</label>
   <textarea rows="5" cols="60" name="description"><?php echo ($job != NULL ? $job['Description'] : set_value('description')); ?></textarea>
+  <br/>
+
+  <h3>Job Requirements</h3>
+  <label for="edu_req">Education</label>
+  <textarea rows="5" cols="60" name="edu_req"><?php echo ($job != NULL ? $job['EduReq'] : set_value('edu_req')); ?></textarea>
+  <br/>
+
+  <label for="skill_req">Skills</label>
+  <textarea rows="5" cols="60" name="skill_req"><?php echo ($job != NULL ? $job['SkillReq'] : set_value('skill_req')); ?></textarea>
+  <br/>
+
+  <label for="lang_req">Languages</label>
+  <textarea rows="5" cols="60" name="lang_req"><?php echo ($job != NULL ? $job['LangReq'] : set_value('lang_req')); ?></textarea>
+  <br/>
+
+  <label for="exp_req">Experience</label>
+  <textarea rows="5" cols="60" name="exp_req"><?php echo ($job != NULL ? $job['ExpReq'] : set_value('exp_req')); ?></textarea>
   <br/>
 
   <input type="submit" value="Save"/>

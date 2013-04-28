@@ -205,7 +205,23 @@ $config = array(
         array(
           'field' => 'description',
           'label' => 'Description',
-          'rules' => 'max_length[1024]')
+          'rules' => 'max_length[1024]'),
+        array(
+          'field' => 'edu_req',
+          'label' => 'Education',
+          'rules' => 'max_length[256]'),
+        array(
+          'field' => 'skill_req',
+          'label' => 'Skills',
+          'rules' => 'max_length[256]'),
+        array(
+          'field' => 'lang_req',
+          'label' => 'Languages',
+          'rules' => 'max_length[256]'),
+        array(
+          'field' => 'exp_req',
+          'label' => 'Experience',
+          'rules' => 'max_length[256]')
         ),
 
     'cv' => array(
