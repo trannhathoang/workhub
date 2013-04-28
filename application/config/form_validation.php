@@ -74,10 +74,6 @@ $config = array(
         'label' => 'Address',
         'rules' => 'max_length[256]'),
       array(
-        'field' => 'category',
-        'label' => 'Category',
-        'rules' => 'max_length[256]'),
-      array(
         'field' => 'size',
         'label' => 'Size',
         'rules' => 'max_length[2]'),
@@ -152,10 +148,6 @@ $config = array(
           'label' => 'Address',
           'rules' => 'max_length[256]'),
         array(
-          'field' => 'category',
-          'label' => 'Category',
-          'rules' => 'max_length[256]'),
-        array(
           'field' => 'size',
           'label' => 'Size',
           'rules' => 'max_length[2]'),
@@ -179,9 +171,13 @@ $config = array(
           'label' => 'Status',
           'rules' => 'is_natural|greater_than[-1]|less_than[2]'),
         array(
+          'field' => 'level',
+          'label' => 'Level',
+          'rules' => 'greater_than[0]'),
+        array(
           'field' => 'category',
           'label' => 'Category',
-          'rules' => 'max_length[255]'),
+          'rules' => 'greater_than[0]'),
         array(
           'field' => 'min_salary',
           'label' => 'Min salary',
@@ -225,10 +221,6 @@ $config = array(
           'field' => 'status',
           'label' => 'Status',
           'rules' => 'is_natural|greater_than[-1]|less_than[2]'),
-        array(
-          'field' => 'category',
-          'label' => 'Category',
-          'rules' => 'max_length[255]'),
         array(
           'field' => 'edu_lev',
           'label' => 'Education level',

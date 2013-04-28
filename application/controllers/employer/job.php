@@ -10,6 +10,8 @@ class Job extends CI_Controller {
     $this->load->helper('form');
     $this->load->helper('url');
     $this->load->model('region_model', '', TRUE);
+    $this->load->model('category_model', '', TRUE);
+    $this->load->model('job_level_model', '', TRUE);
     $this->load->model('job_model', '', TRUE);
 
     $sess_data = $this->session->userdata('logged_in');
@@ -18,6 +20,8 @@ class Job extends CI_Controller {
     $this->data['type'] = $sess_data['type'];
 
     $this->data['regions'] = $this->region_model->get_regions();
+    $this->data['categories'] = $this->category_model->get_categories();
+    $this->data['levels'] = $this->job_level_model->get_levels();
     $this->data['job'] = NULL;
   }
 

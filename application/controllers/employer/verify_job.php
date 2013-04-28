@@ -11,6 +11,8 @@ class Verify_job extends CI_Controller {
     $this->load->library('form_validation');
     $this->load->helper('url');
     $this->load->model('region_model', '', TRUE);
+    $this->load->model('category_model', '', TRUE);
+    $this->load->model('job_level_model', '', TRUE);
     $this->load->model('job_model', '', TRUE);
 
     $sess_data = $this->session->userdata('logged_in');
@@ -25,6 +27,8 @@ class Verify_job extends CI_Controller {
       // Prepare data
       $this->data['title'] = 'Edit Job';
       $this->data['regions'] = $this->region_model->get_regions();
+      $this->data['categories'] = $this->category_model->get_categories();
+      $this->data['levels'] = $this->job_level_model->get_levels();
       $this->data['job'] = NULL;
       if ($jid > 0) {
         $query = $this->job_model->get_job($jid, $this->data['uid']);
@@ -64,6 +68,7 @@ class Verify_job extends CI_Controller {
     }
 
     $newdata['Status'] = $this->input->post('status');
+    $newdata['Level'] = $this->input->post('level');
     $newdata['Category'] = $this->input->post('category');
 
     $min_salary = $this->input->post('min_salary');

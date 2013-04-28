@@ -57,7 +57,6 @@ class Verify_profile extends CI_Controller {
 
     $newdata['RID'] = $this->input->post('region');
     $newdata['Address'] = $this->input->post('address');
-    $newdata['Category'] = $this->input->post('category');
     $newdata['Size'] = $this->input->post('size');
     $newdata['Description'] = $this->input->post('description');
 

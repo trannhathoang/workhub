@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 27, 2013 at 04:00 PM
+-- Generation Time: Apr 28, 2013 at 05:37 AM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -40,6 +40,35 @@ CREATE TABLE IF NOT EXISTS `Application` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Category`
+--
+
+CREATE TABLE IF NOT EXISTS `Category` (
+  `CAID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) NOT NULL,
+  PRIMARY KEY (`CAID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `Category`
+--
+
+INSERT INTO `Category` (`CAID`, `Name`) VALUES
+(1, 'Other'),
+(2, 'Accounting/Auditing'),
+(3, 'Accounting/Finance'),
+(4, 'Administrative/Clerical'),
+(5, 'Advertising/Promotion/PR'),
+(6, 'Agriculture/Forestry'),
+(7, 'Airlines/Tourism/Hotel'),
+(8, 'Architecture/Interior Design'),
+(9, 'Arts/Design'),
+(10, 'Automotive'),
+(11, 'Banking');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `CV`
 --
 
@@ -48,7 +77,6 @@ CREATE TABLE IF NOT EXISTS `CV` (
   `UID` int(11) NOT NULL COMMENT 'Applicant ID',
   `Subject` varchar(128) NOT NULL COMMENT 'Subject helps applicant organize CVs. This field should not be shown to employers',
   `Status` int(2) NOT NULL DEFAULT '1',
-  `Category` varchar(255) NOT NULL,
   `EduLev` varchar(50) DEFAULT NULL,
   `Skill` varchar(255) DEFAULT NULL,
   `Language` varchar(255) DEFAULT NULL,
@@ -60,14 +88,16 @@ CREATE TABLE IF NOT EXISTS `CV` (
   KEY `CV_Applicant1_idx` (`UID`),
   KEY `UID` (`UID`),
   KEY `RID` (`RID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `CV`
 --
 
-INSERT INTO `CV` (`CID`, `UID`, `Subject`, `Status`, `Category`, `EduLev`, `Skill`, `Language`, `Exp`, `AddInfo`, `RID`) VALUES
-(1, 11, 'cv1', -1, 'IT', 'master', 'ultimate', 'English', 0, 'too proo', 24);
+INSERT INTO `CV` (`CID`, `UID`, `Subject`, `Status`, `EduLev`, `Skill`, `Language`, `Exp`, `AddInfo`, `RID`) VALUES
+(1, 11, 'cv1', -1, 'master', 'ultimate', 'English', 0, 'too proo', 24),
+(2, 11, 'cv1', 1, 'master', 'ultimate', 'English', 0, 'too pro', 24),
+(3, 11, 'cv2', 1, 'Doctor', 'blink', 'Laos', 0, '', 16);
 
 -- --------------------------------------------------------
 
@@ -97,41 +127,64 @@ CREATE TABLE IF NOT EXISTS `Job` (
   `UID` int(11) NOT NULL COMMENT 'Employer ID',
   `Name` varchar(128) NOT NULL,
   `Status` int(2) NOT NULL DEFAULT '1' COMMENT '-1 = disabled; 0 = inactive; 1 = active',
-  `Category` varchar(255) DEFAULT NULL,
+  `Level` int(11) DEFAULT NULL COMMENT 'Job level',
+  `Category` int(11) DEFAULT NULL,
   `MinSalary` int(11) DEFAULT NULL,
   `MaxSalary` int(11) DEFAULT NULL,
   `EduReq` varchar(50) DEFAULT NULL,
   `SkillReq` varchar(255) DEFAULT NULL,
   `LangReq` varchar(255) DEFAULT NULL,
   `ExpReq` int(11) DEFAULT NULL,
-  `Location` varchar(255) DEFAULT NULL,
   `ExpiredDate` date DEFAULT NULL,
-  `RID` int(11) NOT NULL DEFAULT '0' COMMENT 'Region ID',
+  `RID` int(11) NOT NULL DEFAULT '1' COMMENT 'Region ID',
   `Address` varchar(256) DEFAULT NULL,
   `Description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`JID`),
   KEY `Job_Region_idx` (`RID`),
-  KEY `Job_Company1_idx` (`UID`)
+  KEY `Job_Company1_idx` (`UID`),
+  KEY `Level` (`Level`),
+  KEY `Category` (`Category`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `Job`
 --
 
-INSERT INTO `Job` (`JID`, `UID`, `Name`, `Status`, `Category`, `MinSalary`, `MaxSalary`, `EduReq`, `SkillReq`, `LangReq`, `ExpReq`, `Location`, `ExpiredDate`, `RID`, `Address`, `Description`) VALUES
-(1, 12, 'Tester', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2013-06-01', 24, '', ''),
-(2, 12, 'Manager', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, NULL, NULL),
-(3, 12, 'Field runner', 1, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '', ''),
-(4, 12, 'Bao ve', -1, 'Security', 2000000, 5000000, NULL, NULL, NULL, NULL, NULL, NULL, 16, '', ''),
-(5, 12, 'Gate Guard', 1, 'Security', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 20, '', ''),
-(6, 12, 'Body guard', 1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 19, '', ''),
-(7, 12, 'Safe guard', -1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, '', ''),
-(8, 12, 'Safe guard', -1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, '', ''),
-(9, 12, 'Safe guard', 1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, '', ''),
-(10, 12, 'Saleman', -1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 18, '', ''),
-(11, 12, 'Clerk', 1, '', 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 1, '', ''),
-(12, 12, 'Writer', 1, 'IT', 1000000, 5000000, NULL, NULL, NULL, NULL, NULL, '2014-04-14', 1, 'address job 6', 'desc'),
-(13, 14, 'Guard', 1, '', 3000000, 6000000, NULL, NULL, NULL, NULL, NULL, '2014-05-10', 39, '', '');
+INSERT INTO `Job` (`JID`, `UID`, `Name`, `Status`, `Level`, `Category`, `MinSalary`, `MaxSalary`, `EduReq`, `SkillReq`, `LangReq`, `ExpReq`, `ExpiredDate`, `RID`, `Address`, `Description`) VALUES
+(1, 12, 'Tester', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2013-06-01', 24, '', ''),
+(2, 12, 'Manager', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24, NULL, NULL),
+(3, 12, 'Field runner', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, '', ''),
+(4, 12, 'Bao ve', -1, 1, NULL, 2000000, 5000000, NULL, NULL, NULL, NULL, NULL, 16, '', ''),
+(5, 12, 'Gate Guard', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 20, '', ''),
+(6, 12, 'Body guard', 1, 1, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 19, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `JobLevel`
+--
+
+CREATE TABLE IF NOT EXISTS `JobLevel` (
+  `JLID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) NOT NULL,
+  PRIMARY KEY (`JLID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `JobLevel`
+--
+
+INSERT INTO `JobLevel` (`JLID`, `Name`) VALUES
+(1, 'Other'),
+(2, 'New grad / Entry level / Internship'),
+(3, 'Experienced (non-manager)'),
+(4, 'Leader / Supervisor'),
+(5, 'Manager'),
+(6, 'Vice Director'),
+(7, 'Director'),
+(8, 'CEO'),
+(9, 'Vice President'),
+(10, 'President');
 
 -- --------------------------------------------------------
 
@@ -234,7 +287,6 @@ CREATE TABLE IF NOT EXISTS `User` (
   `Description` text,
   `Sex` int(2) NOT NULL DEFAULT '0' COMMENT 'Applicant',
   `Birthday` date DEFAULT NULL COMMENT 'Applicant',
-  `Category` varchar(50) DEFAULT NULL COMMENT 'Employer',
   `Size` int(11) DEFAULT NULL COMMENT 'Employer',
   PRIMARY KEY (`UID`),
   UNIQUE KEY `username` (`Username`),
@@ -245,13 +297,13 @@ CREATE TABLE IF NOT EXISTS `User` (
 -- Dumping data for table `User`
 --
 
-INSERT INTO `User` (`UID`, `Username`, `Password`, `Type`, `Status`, `Email`, `Name`, `RID`, `Address`, `Description`, `Sex`, `Birthday`, `Category`, `Size`) VALUES
-(11, 'user1', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user1new@example.com', 'User Mot', 1, 'user 1 address', 'user 1 description', 1, '2012-12-12', NULL, NULL),
-(12, 'user2', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user2new@example.com', 'User 2', 24, 'user 2 address', 'user 2 description new', 0, NULL, 'IT', 1),
-(13, 'user3', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user3@example.com', 'Nguyen Van Ba', 19, 'user 3 address', 'user 3 desc', 0, '0000-00-00', NULL, NULL),
-(14, 'user4', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user4@example.com', 'cty tnhh 4`', 18, 'address 4', 'user 4 desc', 0, NULL, 'IT', 2),
-(15, 'user5', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user5@example.com', 'Thím N', 52, 'address 5', 'desc 5', 1, '0000-00-00', NULL, NULL),
-(16, 'user6', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user6@example.com', 'Six Coporation', 7, 'address 6', 'desc 6', 0, NULL, 'Banking', 3);
+INSERT INTO `User` (`UID`, `Username`, `Password`, `Type`, `Status`, `Email`, `Name`, `RID`, `Address`, `Description`, `Sex`, `Birthday`, `Size`) VALUES
+(11, 'user1', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user1new@example.com', 'User Mot', 1, 'user 1 address', 'user 1 description', 1, '2012-12-12', NULL),
+(12, 'user2', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user2new@example.com', 'User 2', 24, 'user 2 address', 'user 2 description new', 0, NULL, 1),
+(13, 'user3', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user3@example.com', 'Nguyen Van Ba', 19, 'user 3 address', 'user 3 desc', 0, '0000-00-00', NULL),
+(14, 'user4', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user4@example.com', 'cty tnhh 4`', 18, 'address 4', 'user 4 description', 0, NULL, 2),
+(15, 'user5', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user5@example.com', 'Thím N', 52, 'address 5', 'desc 5', 1, '0000-00-00', NULL),
+(16, 'user6', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user6@example.com', 'Six Coporation', 7, 'address 6', 'desc 6', 0, NULL, 3);
 
 --
 -- Constraints for dumped tables
@@ -268,8 +320,10 @@ ALTER TABLE `CV`
 -- Constraints for table `Job`
 --
 ALTER TABLE `Job`
+  ADD CONSTRAINT `Job_ibfk_4` FOREIGN KEY (`Category`) REFERENCES `Category` (`CAID`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `Job_ibfk_1` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Job_ibfk_2` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Job_ibfk_2` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Job_ibfk_3` FOREIGN KEY (`Level`) REFERENCES `JobLevel` (`JLID`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `User`

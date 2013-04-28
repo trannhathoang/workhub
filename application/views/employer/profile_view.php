@@ -50,11 +50,6 @@ echo validation_errors();
     value="<?php echo $user['Address']; ?>"/>
   <br/>
 
-   <label for="category">Category</label>
-  <input type="text" size="20" name="category"
-    value="<?php echo $user['Category']; ?>"/>
-  <br/>
-
   <label for="size">Size</label>
   <input type="text" size="20" name="size"
     value="<?php echo $user['Size']; ?>"/>

@@ -41,7 +41,6 @@ class Verify_signup extends CI_Controller {
                   'Sex' => 0,
                   'Birthday' => NULL,
                   /* Employer field */
-                  'Category' => $this->input->post('category'),
                   'Size' => $this->input->post('size'));
 
     // Field validation succeeded. Validate against database

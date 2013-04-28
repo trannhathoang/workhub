@@ -20,13 +20,36 @@ echo validation_errors();
   <label for="status">Status</label>
   <select name="status">
     <option value="<?php echo ACTIVE; ?>" <?php echo ($job != NULL && $job['Status'] == ACTIVE ? 'selected' : ''); ?>>Active</option>
-    <option value="<?php echo INACTIVE; ?>" <?php echo ($job != NULL && $job['Status'] != ACTIVE ? 'selected' : ''); ?>>Inactive</option>
+    <option value="<?php echo INACTIVE; ?>" <?php echo ($job != NULL && $job['Status'] != INACTIVE ? 'selected' : ''); ?>>Inactive</option>
   </select>
   </br>
 
+  <label for="level">Level</label>
+  <select name="level">
+    <?php
+    foreach ($levels as $row) {
+      if ($job != NULL) {
+        echo '<option value="'.$row['JLID'].'" '.($row['JLID'] == $job['Level'] ? 'selected' : '').'>'.$row['Name'].'</option>';
+      } else {
+        echo '<option value="'.$row['JLID'].'" '.($row['JLID'] == set_value('level') ? 'selected' : '').'>'.$row['Name'].'</option>';
+      }
+    }
+    ?>
+  </select>
+  <br/>
+
   <label for="category">Category</label>
-  <input type="text" size="20" name="category"
-    value="<?php echo ($job != NULL ? $job['Category'] : set_value('category')); ?>"/>
+  <select name="category">
+    <?php
+    foreach ($categories as $row) {
+      if ($job != NULL) {
+        echo '<option value="'.$row['CAID'].'" '.($row['CAID'] == $job['Category'] ? 'selected' : '').'>'.$row['Name'].'</option>';
+      } else {
+        echo '<option value="'.$row['CAID'].'" '.($row['CAID'] == set_value('category') ? 'selected' : '').'>'.$row['Name'].'</option>';
+      }
+    }
+    ?>
+  </select>
   <br/>
 
   <label for="min_salary">Min salary</label>
@@ -51,7 +74,7 @@ echo validation_errors();
       if ($job != NULL) {
         echo '<option value="'.$row['RID'].'" '.($row['RID'] == $job['RID'] ? 'selected' : '').'>'.$row['Name'].'</option>';
       } else {
-        echo '<option value="'.$row['RID'].'" '.($row['RID'] == set_value('regions') ? 'selected' : '').'>'.$row['Name'].'</option>';
+        echo '<option value="'.$row['RID'].'" '.($row['RID'] == set_value('region') ? 'selected' : '').'>'.$row['Name'].'</option>';
       }
     }
     ?>

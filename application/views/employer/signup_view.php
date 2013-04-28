@@ -41,11 +41,6 @@
     value="<?php echo set_value('address'); ?>"/>
   <br/>
 
-  <label for="category">Category</label>
-  <input type="text" size="20" id="category" name="category"
-    value="<?php echo set_value('category'); ?>"/>
-  <br/>
-
   <label for="size">Size</label>
   <input type="text" size="20" id="size" name="size"
     value="<?php echo set_value('size'); ?>"/>
