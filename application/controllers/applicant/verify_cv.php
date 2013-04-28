@@ -64,7 +64,6 @@ class Verify_cv extends CI_Controller {
     }
 
     $newdata['Status'] = $this->input->post('status');
-    $newdata['Category'] = $this->input->post('category');
     $newdata['EduLev'] = $this->input->post('edu_lev');
     $newdata['Skill'] = $this->input->post('skill');
     $newdata['Language'] = $this->input->post('language');

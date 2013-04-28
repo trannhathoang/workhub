@@ -42,7 +42,8 @@ $config = array(
       array(
         'field' => 'description',
         'label' => 'Description',
-        'rules' => 'max_length[512]')),
+        'rules' => 'max_length[512]')
+      ),
 
     'signup_emp' => array(
       array(
@@ -240,19 +241,19 @@ $config = array(
         array(
           'field' => 'edu_lev',
           'label' => 'Education level',
-          'rules' => 'max_length[50]'),
+          'rules' => 'max_length[256]'),
         array(
           'field' => 'skill',
           'label' => 'Skills',
-          'rules' => 'max_length[255]'),
+          'rules' => 'max_length[256]'),
         array(
           'field' => 'language',
           'label' => 'Language',
-          'rules' => 'max_length[255]'),
+          'rules' => 'max_length[256]'),
         array(
           'field' => 'exp',
           'label' => 'Experience',
-          'rules' => 'max_length[10]'),
+          'rules' => 'max_length[256]'),
         array(
           'field' => 'region',
           'label' => 'Region',
@@ -260,6 +261,6 @@ $config = array(
         array(
           'field' => 'add_info',
           'label' => 'Additional information',
-          'rules' => 'max_length[255]')
+          'rules' => 'max_length[256]')
         )
     );

@@ -24,29 +24,20 @@ echo validation_errors();
   </select>
   </br>
 
-  <label for="category">Category</label>
-  <input type="text" size="20" name="category"
-    value="<?php echo ($cv != NULL ? $cv['Category'] : set_value('category')); ?>"/>
-  <br/>
-
   <label for="edu_lev">Education level</label>
-  <input type="text" size="20" name="edu_lev"
-    value="<?php echo ($cv != NULL ? $cv['EduLev'] : set_value('edu_lev')); ?>"/>
+  <textarea rows="5" cols="60" name="edu_lev"><?php echo ($cv != NULL ? $cv['EduLev'] : set_value('edu_lev')); ?></textarea>
   <br/>
 
   <label for="skill">Skills</label>
-  <input type="text" size="20" name="skill"
-    value="<?php echo ($cv != NULL ? $cv['Skill'] : set_value('skill')); ?>"/>
+  <textarea rows="5" cols="60" name="skill"><?php echo ($cv != NULL ? $cv['Skill'] : set_value('skill')); ?></textarea>
   <br/>
 
   <label for="language">Language</label>
-  <input type="text" size="20" name="language"
-    value="<?php echo ($cv != NULL ? $cv['Language'] : set_value('language')); ?>"/>
+  <textarea rows="5" cols="60" name="language"><?php echo ($cv != NULL ? $cv['Language'] : set_value('language')); ?></textarea>
   <br/>
 
   <label for="exp">Experience</label>
-  <input type="text" size="40" name="exp"
-    value="<?php echo ($cv != NULL ? $cv['Exp'] : set_value('exp')); ?>"/>
+  <textarea rows="5" cols="60" name="exp"><?php echo ($cv != NULL ? $cv['Exp'] : set_value('exp')); ?></textarea>
   <br/>
 
   <label for="region">Region</label>
