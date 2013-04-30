@@ -31,7 +31,7 @@ class Verify_job extends CI_Controller {
       $this->data['levels'] = $this->job_level_model->get_levels();
       $this->data['job'] = NULL;
       if ($jid > 0) {
-        $query = $this->job_model->get_job($jid, $this->data['uid']);
+        $query = $this->job_model->get_job($jid);
         foreach ($query as $row) {
           $this->data['job'] = $row;
         }

@@ -6,10 +6,12 @@ class Job_model extends CI_Model {
     $this->load->database();
   }
 
-  /* Search jobs by region, category, job level and keyword */
+  /* Search jobs by region, category, job level and keyword. Return fields
+     of job and employer name as Emp_Name. */
   public function search_jobs($rid = 0, $caid = 0, $jlid = 0, $keyword = NULL) {
-    $this->db->select('*, Job.Name as Job_Name, JobLevel.Name as JobLevel_Name, Category.Name as Category_Name, Region.Name as Region_Name');
+    $this->db->select('*, Job.Name as Job_Name, User.Name as Emp_Name, JobLevel.Name as JobLevel_Name, Category.Name as Category_Name, Region.Name as Region_Name');
     $this->db->from('Job');
+    $this->db->join('User', 'Job.UID = User.UID');
     $this->db->join('JobLevel', 'Job.JLID = JobLevel.JLID');
     $this->db->join('Category', 'Job.CAID = Category.CAID');
     $this->db->join('Region', 'Job.RID = Region.RID');
@@ -40,8 +42,8 @@ class Job_model extends CI_Model {
   }
 
   /* Get specific job. Use foreach to retrieve job from query. */
-  public function get_job($jid, $uid) {
-    $where = array('JID' => $jid, 'UID' => $uid);
+  public function get_job($jid) {
+    $where = array('JID' => $jid);
     $this->db->where($where);
     $query = $this->db->get('Job');
 

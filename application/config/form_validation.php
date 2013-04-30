@@ -262,5 +262,19 @@ $config = array(
           'field' => 'add_info',
           'label' => 'Additional information',
           'rules' => 'max_length[256]')
+        ),
+    'application' => array(
+        array(
+          'field' => 'job',
+          'label' => 'Job',
+          'rules' => 'required|is_natural_no_zero'),
+        array(
+          'field' => 'euid',
+          'label' => 'Employer ID',
+          'rules' => 'required|is_natural_no_zero'),
+        array(
+          'field' => 'cv',
+          'label' => 'CV',
+          'rules' => 'required|is_natural_no_zero')
         )
     );

@@ -9,7 +9,6 @@ class Verify_cv extends CI_Controller {
     parent::__construct();
     $this->load->library('session');
     $this->load->library('form_validation');
-    $this->load->helper('url');
     $this->load->model('region_model', '', TRUE);
     $this->load->model('cv_model', '', TRUE);
 
@@ -71,7 +70,7 @@ class Verify_cv extends CI_Controller {
     $newdata['RID'] = $this->input->post('region');
     $newdata['AddInfo'] = $this->input->post('add_info');
 
-    // $newdata MUST NOT have 'JID' field
+    // $newdata MUST NOT have 'CID' field
     return $this->cv_model->save_cv($cid, $this->data['uid'], $newdata);
   }
 

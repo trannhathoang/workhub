@@ -42,6 +42,7 @@
   <tr>
     <th>ID</th>
     <th>Job name</th>
+    <th>Employer</th>
     <th>Active</th>
     <th>Job level</th>
     <th>Category</th>
@@ -53,7 +54,8 @@
   <?php foreach ($search_result as $row) if ($row['Status'] > DISABLED) { ?>
   <tr>
     <td><?php echo $row['JID']; ?></td>
-    <td><?php echo $row['Job_Name']; ?></td>
+    <td><?php echo anchor('applicant/job/view/'.$row['JID'], $row['Job_Name']); ?></td>
+    <td><?php echo $row['Emp_Name']; ?></td>
     <td><?php echo ($row['Status'] == ACTIVE ? 'Yes' : '-'); ?></td>
     <td><?php echo $row['JobLevel_Name']; ?></td>
     <td><?php echo $row['Category_Name']; ?></td>

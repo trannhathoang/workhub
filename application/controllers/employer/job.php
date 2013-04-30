@@ -38,7 +38,7 @@ class Job extends CI_Controller {
   }
 
   public function edit($jid) {
-    $query = $this->job_model->get_job($jid, $this->data['uid']);
+    $query = $this->job_model->get_job($jid);
     if ($query) {
       foreach ($query as $row) {
         $this->data['job'] = $row;
@@ -61,7 +61,7 @@ class Job extends CI_Controller {
   }
 
   public function discard($jid) {
-    $query = $this->job_model->get_job($jid, $this->data['uid']);
+    $query = $this->job_model->get_job($jid);
     if ($query) {
       foreach ($query as $row) {
         $this->data['job'] = $row;
@@ -81,12 +81,12 @@ class Job extends CI_Controller {
 
       $this->load->view('templates/footer.php', $this->data);
     } else {
-      redirect('home/managejobs', 'refresh');
+      redirect('employer/managejobs', 'refresh');
     }
   }
 
   public function discard_confirmed($jid) {
-    $query = $this->job_model->get_job($jid, $this->data['uid']);
+    $query = $this->job_model->get_job($jid);
     if ($query) {
       foreach ($query as $row) {
         $this->data['job'] = $row;
@@ -102,7 +102,7 @@ class Job extends CI_Controller {
       }
     }
 
-    redirect('home/managejobs', 'refresh');
+    redirect('employer/managejobs', 'refresh');
   }
 
 }
