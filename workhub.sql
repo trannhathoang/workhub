@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2013 at 03:43 PM
+-- Generation Time: May 01, 2013 at 09:14 AM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -29,13 +29,25 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `Application` (
   `CID` int(11) NOT NULL,
   `JID` int(11) NOT NULL,
-  `ApplyDate` date NOT NULL,
-  `Status` varchar(45) NOT NULL,
+  `AUID` int(11) NOT NULL COMMENT 'Applicant UID',
+  `EUID` int(11) NOT NULL COMMENT 'Employer ID',
+  `Status` int(2) NOT NULL COMMENT '-1 = disabled; 0 = inactive; 1 = active',
+  `ApplyDate` date DEFAULT NULL,
   `Note` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`CID`,`JID`),
   KEY `ApplyToJob_idx` (`JID`),
-  KEY `ApplyByCV_idx` (`CID`)
+  KEY `ApplyByCV_idx` (`CID`),
+  KEY `AUID` (`AUID`),
+  KEY `EUID` (`EUID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Application`
+--
+
+INSERT INTO `Application` (`CID`, `JID`, `AUID`, `EUID`, `Status`, `ApplyDate`, `Note`) VALUES
+(2, 1, 11, 12, -1, NULL, NULL),
+(2, 3, 11, 14, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -88,14 +100,16 @@ CREATE TABLE IF NOT EXISTS `CV` (
   KEY `CV_Applicant1_idx` (`UID`),
   KEY `UID` (`UID`),
   KEY `RID` (`RID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `CV`
 --
 
 INSERT INTO `CV` (`CID`, `UID`, `Subject`, `Status`, `EduLev`, `Skill`, `Language`, `Exp`, `AddInfo`, `RID`) VALUES
-(1, 11, 'cv1', 1, '12', '', '', '', '', 24);
+(1, 11, 'cv1', 1, '12', '', '', '', '', 24),
+(2, 11, 'cv2', 1, '', '', '', '', '', 24),
+(3, 13, 'cv1', 1, '', '', '', '', '', 13);
 
 -- --------------------------------------------------------
 
@@ -149,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `Job` (
 --
 
 INSERT INTO `Job` (`JID`, `UID`, `Name`, `Status`, `JLID`, `CAID`, `MinSalary`, `MaxSalary`, `EduReq`, `SkillReq`, `LangReq`, `ExpReq`, `ExpiredDate`, `RID`, `Address`, `Description`) VALUES
-(1, 12, 'Job 1', 1, 2, 11, NULL, NULL, '', '', '', '', NULL, 24, '', ''),
+(1, 12, 'Job 1', 1, 2, 11, 1000000, 3000000, '', '', '', '', NULL, 24, '', ''),
 (2, 12, 'Job 2', 1, 2, 1, NULL, NULL, '', '', '', '', NULL, 24, '', ''),
 (3, 14, 'Job 1', 1, 3, 11, NULL, NULL, '', '', '', '', NULL, 24, '', ''),
 (4, 14, 'Job 2', 1, 3, 1, NULL, NULL, '', '', '', '', NULL, 30, '', ''),
@@ -307,11 +321,20 @@ INSERT INTO `User` (`UID`, `Username`, `Password`, `Type`, `Status`, `Email`, `N
 --
 
 --
+-- Constraints for table `Application`
+--
+ALTER TABLE `Application`
+  ADD CONSTRAINT `Application_ibfk_1` FOREIGN KEY (`CID`) REFERENCES `CV` (`CID`),
+  ADD CONSTRAINT `Application_ibfk_2` FOREIGN KEY (`JID`) REFERENCES `Job` (`JID`),
+  ADD CONSTRAINT `Application_ibfk_3` FOREIGN KEY (`AUID`) REFERENCES `User` (`UID`),
+  ADD CONSTRAINT `Application_ibfk_4` FOREIGN KEY (`EUID`) REFERENCES `User` (`UID`);
+
+--
 -- Constraints for table `CV`
 --
 ALTER TABLE `CV`
-  ADD CONSTRAINT `CV_ibfk_4` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `CV_ibfk_3` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `CV_ibfk_3` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `CV_ibfk_4` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Job`

@@ -23,13 +23,7 @@ class Cv extends CI_Controller {
   /* Default behavior is add new */
   public function index() {
     $this->data['title'] = 'Edit CV';
-    $this->load->view('templates/header.php', $this->data);
-    $this->load->view('acc_view', $this->data);
-    $this->load->view('applicant/nav_view', $this->data);
-
-    $this->load->view('applicant/cv_view', $this->data);
-
-    $this->load->view('templates/footer.php', $this->data);
+    $this->_show_view('cv_view');
   }
 
   public function edit($cid) {
@@ -46,13 +40,7 @@ class Cv extends CI_Controller {
     // If CV was saved previously
     $this->data['saved'] = $this->session->flashdata('cv_saved');
 
-    $this->load->view('templates/header.php', $this->data);
-    $this->load->view('acc_view', $this->data);
-    $this->load->view('applicant/nav_view', $this->data);
-
-    $this->load->view('applicant/cv_view', $this->data);
-
-    $this->load->view('templates/footer.php', $this->data);
+    $this->_show_view('cv_view');
   }
 
   public function discard($cid) {
@@ -68,13 +56,7 @@ class Cv extends CI_Controller {
     $this->data['title'] = 'Discard CV';
 
     if ($this->data['cv'] != NULL) {
-      $this->load->view('templates/header.php', $this->data);
-      $this->load->view('acc_view', $this->data);
-      $this->load->view('applicant/nav_view', $this->data);
-
-      $this->load->view('applicant/discard_cv_view', $this->data);
-
-      $this->load->view('templates/footer.php', $this->data);
+      $this->_show_view('discard_cv_view');
     } else {
       redirect('home/managecvs', 'refresh');
     }
@@ -98,6 +80,16 @@ class Cv extends CI_Controller {
     }
 
     redirect('home/managecvs', 'refresh');
+  }
+
+  private function _show_view($view) {
+    $this->load->view('templates/header.php', $this->data);
+    $this->load->view('acc_view', $this->data);
+    $this->load->view('applicant/nav_view', $this->data);
+
+    $this->load->view('applicant/'.$view, $this->data);
+
+    $this->load->view('templates/footer.php', $this->data);
   }
 
 }
