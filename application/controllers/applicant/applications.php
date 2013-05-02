@@ -18,7 +18,7 @@ class Applications extends CI_Controller {
   }
 
   public function index() {
-    $this->data['applications'] = $this->application_model->get_applications($this->data['uid']);
+    $this->data['applications'] = $this->application_model->get_apps_by_auid($this->data['uid']);
     $this->data['discarded'] = $this->session->flashdata('app_discarded');
     $this->_show_view('applications_view');
   }

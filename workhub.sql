@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 01, 2013 at 09:14 AM
+-- Generation Time: May 02, 2013 at 02:19 AM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `Application` (
   `JID` int(11) NOT NULL,
   `AUID` int(11) NOT NULL COMMENT 'Applicant UID',
   `EUID` int(11) NOT NULL COMMENT 'Employer ID',
-  `Status` int(2) NOT NULL COMMENT '-1 = disabled; 0 = inactive; 1 = active',
+  `Status` int(2) NOT NULL DEFAULT '1' COMMENT '-1 = disabled; 0 = inactive; 1 = active',
   `ApplyDate` date DEFAULT NULL,
   `Note` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`CID`,`JID`),
@@ -120,12 +120,15 @@ INSERT INTO `CV` (`CID`, `UID`, `Subject`, `Status`, `EduLev`, `Skill`, `Languag
 CREATE TABLE IF NOT EXISTS `Invitation` (
   `CID` int(11) NOT NULL,
   `JID` int(11) NOT NULL,
-  `ApplyDate` date NOT NULL,
-  `Status` varchar(45) NOT NULL,
+  `AUID` int(11) NOT NULL COMMENT 'Applicant UID',
+  `EUID` int(11) NOT NULL COMMENT 'Employer UID',
+  `Status` int(2) NOT NULL DEFAULT '1',
+  `ApplyDate` date DEFAULT NULL,
   `Note` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`CID`,`JID`),
   KEY `fk_Invitation_Job1_idx` (`JID`),
-  KEY `fk_Invitation_CV_idx` (`CID`)
+  KEY `fk_Invitation_CV_idx` (`CID`),
+  KEY `AUID` (`AUID`,`EUID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

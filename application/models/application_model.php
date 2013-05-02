@@ -23,13 +23,14 @@ class Application_model extends CI_Model {
     return $ins_result;
   }
 
-  public function get_applications($uid) {
+  public function get_app($cid, $jid) {
     $this->db->select('Application.*, CV.Subject, Job.Name as Job_Name, User.Name as Employer_Name');
     $this->db->from('Application');
     $this->db->join('CV', 'Application.CID = CV.CID');
     $this->db->join('Job', 'Application.JID = Job.JID');
     $this->db->join('User', 'Application.EUID = User.UID');
-    $this->db->where('Application.AUID', $uid);
+    $where = array('Application.CID' => $cid, 'Application.JID' => $jid);
+    $this->db->where($where);
 
     $query = $this->db->get();
 
@@ -40,14 +41,28 @@ class Application_model extends CI_Model {
     }
   }
 
-  public function get_app($cid, $jid) {
+  /* Get application fields, CV subject, Job name, Employer name.
+     This function is usually used for applicant. */
+  public function get_apps_by_auid($auid) {
     $this->db->select('Application.*, CV.Subject, Job.Name as Job_Name, User.Name as Employer_Name');
     $this->db->from('Application');
     $this->db->join('CV', 'Application.CID = CV.CID');
     $this->db->join('Job', 'Application.JID = Job.JID');
     $this->db->join('User', 'Application.EUID = User.UID');
-    $where = array('Application.CID' => $cid, 'Application.JID' => $jid);
-    $this->db->where($where);
+    $this->db->where('Application.AUID', $auid);
+
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    } else {
+      return NULL;
+    }
+  }
+
+  public function get_apps_by_jid($jid) {
+    $this->db->from('Application');
+    $this->db->where('JID', $jid);
 
     $query = $this->db->get();
 
