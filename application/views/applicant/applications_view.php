@@ -1,24 +1,27 @@
 <h2>Applications</h2>
 
-<?php
-if (isset($discarded) && $discarded == TRUE) {
-  echo '<p>Application is discarded</p>';
-}
-?>
-
 <table border="1">
   <tr>
     <th>CV Subject</th>
     <th>Job</th>
     <th>Employer</th>
+    <th>Status</th>
   </tr>
 
-  <?php foreach ($applications as $row) if ($row['Status'] > DISABLED) { ?>
+  <?php foreach ($applications as $row) { ?>
   <tr>
     <td><?php echo $row['Subject']; ?></td>
     <td><?php echo $row['Job_Name']; ?></td>
     <td><?php echo $row['Employer_Name']; ?></td>
-    <td><?php echo anchor('applicant/applications/discard/'.$row['CID'].'/'.$row['JID'], 'Discard'); ?></td>
+    <td><?php
+        if ($row['Status'] == ACCEPTED) {
+          echo 'Accepted';
+        } else if ($row['Status'] == REFUSED) {
+          echo 'Refused';
+        } else {
+          echo 'Waiting';
+        }
+        ?></td>
   </tr>
-  <?php } /* Close 'foreach if' */ ?>
+  <?php } /* Close 'foreach' */ ?>
 </table>

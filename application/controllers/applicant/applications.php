@@ -19,34 +19,7 @@ class Applications extends CI_Controller {
 
   public function index() {
     $this->data['applications'] = $this->application_model->get_apps_by_auid($this->data['uid']);
-    $this->data['discarded'] = $this->session->flashdata('app_discarded');
     $this->_show_view('applications_view');
-  }
-
-  public function discard($cid, $jid) {
-    $result = $this->application_model->get_app($cid, $jid);
-    if ($result != NULL) {
-      foreach ($result as $row) {
-        $this->data['app'] = $row;
-      }
-      $this->_show_view('discard_app_view');
-    } else {
-      redirect('applicant/applications', 'refresh');
-    }
-  }
-
-  public function discard_confirmed($cid, $jid) {
-    $result = $this->application_model->get_app($cid, $jid);
-    if ($result != NULL) {
-      foreach ($result as $row) {
-        if ($this->application_model->set_status($cid, $jid, DISABLED)) {
-          $this->session->set_flashdata('app_discarded', TRUE);
-          break;
-        }
-      }
-    }
-
-    redirect('applicant/applications', 'refresh');
   }
 
   private function _show_view($view) {

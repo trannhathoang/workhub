@@ -7,7 +7,7 @@
     <li>Employer: <?php echo $employer['Name']; ?></li>
   </ul>
 
-  <p>Please select one of your CVs</p>
+  <p>Please select one of your CVs. Note: You cannot use a CV to apply for a job twice.</p>
 
   <?php
   if ($cvs == NULL) {

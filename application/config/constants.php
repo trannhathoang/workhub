@@ -53,11 +53,15 @@ define('EMPLOYER', 1);
 define('MALE', 0);
 define('FEMALE', 1);
 
-/* Status */
+/* CV, Job Status */
 define('DISABLED', -1);
 define('INACTIVE', 0);
 define('ACTIVE', 1);
 
+/* Applications Status */
+define ('REFUSED', -1);
+define ('WAITING', 0);
+define ('ACCEPTED', 1);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
