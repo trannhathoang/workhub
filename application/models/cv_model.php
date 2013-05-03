@@ -14,9 +14,8 @@ class Cv_model extends CI_Model {
   }
 
   /* Get specific CV. Use foreach to retrieve CV from query. */
-  public function get_cv($cid, $uid) {
-    $where = array('CID' => $cid, 'UID' => $uid);
-    $this->db->where($where);
+  public function get_cv($cid) {
+    $this->db->where('CID', $cid);
     $query = $this->db->get('CV');
 
     if ($query->num_rows() > 0) {

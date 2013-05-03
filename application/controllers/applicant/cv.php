@@ -27,7 +27,7 @@ class Cv extends CI_Controller {
   }
 
   public function edit($cid) {
-    $query = $this->cv_model->get_cv($cid, $this->data['uid']);
+    $query = $this->cv_model->get_cv($cid);
     if ($query) {
       foreach ($query as $row) {
         $this->data['cv'] = $row;
@@ -44,7 +44,7 @@ class Cv extends CI_Controller {
   }
 
   public function discard($cid) {
-    $query = $this->cv_model->get_cv($cid, $this->data['uid']);
+    $query = $this->cv_model->get_cv($cid);
     if ($query) {
       foreach ($query as $row) {
         $this->data['cv'] = $row;
@@ -63,7 +63,7 @@ class Cv extends CI_Controller {
   }
 
   public function discard_confirmed($cid) {
-    $query = $this->cv_model->get_cv($cid, $this->data['uid']);
+    $query = $this->cv_model->get_cv($cid);
     if ($query) {
       foreach ($query as $row) {
         $this->data['cv'] = $row;

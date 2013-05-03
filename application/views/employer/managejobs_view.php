@@ -1,5 +1,6 @@
 <h2>Manage Jobs</h2>
 
+<?php if (isset($discarded) && $discarded == TRUE) echo "<p>Notice: Job is discarded</p>"; ?>
 <?php echo anchor('employer/job', 'Add'); ?>
 <table border="1">
   <tr>
@@ -17,9 +18,34 @@
     <td><?php echo $row['ExpiredDate']; ?></td>
     <td><?php echo ($row['Status'] == ACTIVE ? 'Yes' : '-'); ?></td>
     <td><?php echo count($apps[$row['JID']]); ?></td>
+    <td><?php echo anchor('employer/managejobs/examine/'.$row['JID'], 'Examine'); ?></td>
     <td><?php echo anchor('employer/job/edit/'.$row['JID'], 'Edit'); ?></td>
     <td><?php echo anchor('employer/job/discard/'.$row['JID'], 'Discard'); ?></td>
   </tr>
   <?php } /* Close 'foreach if' */ ?>
 </table>
-<?php if (isset($discarded) && $discarded == TRUE) echo "<p>Notice: Job is discarded</p>"; ?>
+
+<?php if ($exjid > 0) { ?>
+<h3>Examine Job: <?php echo $exjob.' - ID: '.$exjid; ?></h3>
+<table border="1">
+  <tr>
+    <th>CV's ID</th>
+    <th>Education Level</th>
+    <th>Skills</th>
+    <th>Language</th>
+    <th>Experience</th>
+    <th>Additional Information</th>
+  </tr>
+
+  <?php if (isset($apps[$exjid])) foreach ($cvs as $row) { ?>
+  <tr>
+    <td><?php echo $row['CID']; ?></td>
+    <td><?php echo $row['EduLev']; ?></td>
+    <td><?php echo $row['Skill']; ?></td>
+    <td><?php echo $row['Language']; ?></td>
+    <td><?php echo $row['Exp']; ?></td>
+    <td><?php echo $row['AddInfo']; ?></td>
+  </tr>
+  <?php } /* Close 'if foreach' */ ?>
+</table>
+<?php } /* Close if ($exjid > 0) */ ?>

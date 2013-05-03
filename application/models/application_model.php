@@ -60,9 +60,11 @@ class Application_model extends CI_Model {
     }
   }
 
+  /* Get 'enabled' applications by Job ID */
   public function get_apps_by_jid($jid) {
     $this->db->from('Application');
-    $this->db->where('JID', $jid);
+    $where = array('JID' => $jid, 'Status !=' => DISABLED);
+    $this->db->where($where);
 
     $query = $this->db->get();
 

@@ -26,7 +26,7 @@ class Verify_cv extends CI_Controller {
       $this->data['regions'] = $this->region_model->get_regions();
       $this->data['cv'] = NULL;
       if ($cid > 0) {
-        $query = $this->cv_model->get_cv($cid, $this->data['uid']);
+        $query = $this->cv_model->get_cv($cid);
         foreach ($query as $row) {
           $this->data['cv'] = $row;
         }
