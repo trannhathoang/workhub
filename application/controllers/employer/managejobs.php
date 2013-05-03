@@ -19,6 +19,7 @@ class Managejobs extends CI_Controller {
 
     $this->data['title'] = 'Manage Jobs';
     $this->data['apps'] = array(); // Applications of all jobs
+    $this->data['ex_apps'] = NULL; // Applications of currently examined jobs
     $this->data['cvs'] = array(); // CVs corresponding with applications of a job
   }
 
@@ -36,6 +37,7 @@ class Managejobs extends CI_Controller {
       // Currently examined job
       if ($jid > 0 && $job['JID'] == $jid) {
         $this->data['exjob'] = $job['Name'];
+        $this->data['ex_apps'] = $this->data['apps'][$jid];
 
         // Get CVs for being examined job
         if (isset($this->data['apps'][$jid])) {
@@ -57,6 +59,34 @@ class Managejobs extends CI_Controller {
     $this->data['discarded'] = $this->session->flashdata('job_discarded');
 
     $this->_show_view('managejobs_view');
+  }
+
+  /* Accept a CV applying for a job */
+  public function accept($jid, $cid) {
+    // Check if job is owned by user
+    $result = $this->job_model->get_job($jid);
+    $job = NULL;
+    foreach ($result as $row) $job = $row;
+    if ($job == NULL || $job['UID'] !== $this->data['uid']) return FALSE;
+
+    // Set status of application to ACCEPTED
+    $this->application_model->set_status($cid, $jid, ACCEPTED);
+
+    $this->examine($jid);
+  }
+
+  /* Refuse a CV applying for a job */
+  public function refuse($jid, $cid) {
+    // Check if job is owned by user
+    $result = $this->job_model->get_job($jid);
+    $job = NULL;
+    foreach ($result as $row) $job = $row;
+    if ($job == NULL || $job['UID'] !== $this->data['uid']) return FALSE;
+
+    // Set status of application to ACCEPTED
+    $this->application_model->set_status($cid, $jid, REFUSED);
+
+    $this->examine($jid);
   }
 
   private function _show_view($view) {

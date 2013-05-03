@@ -35,6 +35,7 @@
     <th>Language</th>
     <th>Experience</th>
     <th>Additional Information</th>
+    <th>Status</th>
   </tr>
 
   <?php if (isset($apps[$exjid])) foreach ($cvs as $row) { ?>
@@ -45,6 +46,20 @@
     <td><?php echo $row['Language']; ?></td>
     <td><?php echo $row['Exp']; ?></td>
     <td><?php echo $row['AddInfo']; ?></td>
+    <td><?php
+        foreach ($ex_apps as $app) if ($app['CID'] == $row['CID']) {
+          if ($app['Status'] == ACCEPTED) {
+            echo 'Accepted';
+          } else if ($app['Status'] == REFUSED) {
+            echo 'Refused';
+          } else {
+            echo 'Waiting';
+          }
+          break;
+        }
+        ?></td>
+    <td><?php echo anchor('employer/managejobs/accept/'.$exjid.'/'.$row['CID'], 'Accept'); ?></td>
+    <td><?php echo anchor('employer/managejobs/refuse/'.$exjid.'/'.$row['CID'], 'Refuse'); ?></td>
   </tr>
   <?php } /* Close 'if foreach' */ ?>
 </table>

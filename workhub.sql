@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 02, 2013 at 02:19 AM
+-- Generation Time: May 03, 2013 at 10:32 AM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `Application` (
   `JID` int(11) NOT NULL,
   `AUID` int(11) NOT NULL COMMENT 'Applicant UID',
   `EUID` int(11) NOT NULL COMMENT 'Employer ID',
-  `Status` int(2) NOT NULL DEFAULT '1' COMMENT '-1 = disabled; 0 = inactive; 1 = active',
+  `Status` int(2) NOT NULL DEFAULT '0' COMMENT '-1 = refused; 0 = waiting; 1 = accepted',
   `ApplyDate` date DEFAULT NULL,
   `Note` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`CID`,`JID`),
@@ -46,8 +46,9 @@ CREATE TABLE IF NOT EXISTS `Application` (
 --
 
 INSERT INTO `Application` (`CID`, `JID`, `AUID`, `EUID`, `Status`, `ApplyDate`, `Note`) VALUES
-(2, 1, 11, 12, -1, NULL, NULL),
-(2, 3, 11, 14, 1, NULL, NULL);
+(1, 1, 11, 12, 1, NULL, NULL),
+(2, 1, 11, 12, 0, NULL, NULL),
+(2, 3, 11, 14, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -107,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `CV` (
 --
 
 INSERT INTO `CV` (`CID`, `UID`, `Subject`, `Status`, `EduLev`, `Skill`, `Language`, `Exp`, `AddInfo`, `RID`) VALUES
-(1, 11, 'cv1', 1, '12', '', '', '', '', 24),
+(1, 11, 'cv1', 1, '12', 'ultimate', 'English', 'pro', 'Too pro', 24),
 (2, 11, 'cv2', 1, '', '', '', '', '', 24),
 (3, 13, 'cv1', 1, '', '', '', '', '', 13);
 
