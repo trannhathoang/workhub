@@ -35,7 +35,7 @@
     <th>Birthday</th>
     <th>Education Level</th>
     <th>Skills</th>
-    <th>Language</th>
+    <th>Languages</th>
     <th>Experience</th>
     <th>Additional Information</th>
     <th>Region</th>
@@ -46,7 +46,7 @@
   <tr>
     <td><?php echo $row['CV_CID']; ?></td>
     <td><?php echo $row['User_Name']; ?></td>
-    <td><?php echo $row['Sex']; ?></td>
+    <td><?php echo ($row['Sex'] == MALE ? 'Male' : 'Female'); ?></td>
     <td><?php echo $row['Birthday']; ?></td>
     <td><?php echo $row['EduLev']; ?></td>
     <td><?php echo $row['Skill']; ?></td>

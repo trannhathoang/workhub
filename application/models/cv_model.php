@@ -6,6 +6,40 @@ class Cv_model extends CI_Model {
     $this->load->database();
   }
 
+  /* Search jobs by region and keyword */
+  public function search_cvs($sex = -1, $rid = 0, $keyword = NULL) {
+    $this->db->select('CV.*, CV.Status as CV_Status, User.*, User.Name as User_Name, User.Status as User_Status, Region.Name as Region_Name');
+    $this->db->from('CV');
+    $this->db->join('User', 'CV.UID = User.UID');
+    $this->db->join('Region', 'CV.RID = Region.RID');
+
+    $where = array();
+    if ($sex >= 0) {
+      if ($sex == MALE) {
+        $where['User.Sex'] = MALE;
+      } else {
+        $where['User.Sex'] = FEMALE;
+      }
+    }
+    if ($rid > 0) $where['CV.RID'] = $rid;
+    $this->db->where($where);
+
+    if ($keyword != NULL && strlen($keyword) > 0) {
+      $this->db->like('CV.EduLev', $keyword);
+      $this->db->or_like('CV.Skill', $keyword);
+      $this->db->or_like('CV.Language', $keyword);
+      $this->db->or_like('CV.Exp', $keyword);
+      $this->db->or_like('CV.AddInfo', $keyword);
+    }
+
+    $query = $this->db->get();
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    } else {
+      return NULL;
+    }
+  }
+
   /* Get array of CVs of a specific applicant */
   public function get_cvs($uid) {
     $this->db->where('UID', $uid);

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 03, 2013 at 10:32 AM
+-- Generation Time: May 04, 2013 at 03:34 PM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `Application` (
 
 INSERT INTO `Application` (`CID`, `JID`, `AUID`, `EUID`, `Status`, `ApplyDate`, `Note`) VALUES
 (1, 1, 11, 12, 1, NULL, NULL),
-(2, 1, 11, 12, 0, NULL, NULL),
+(2, 1, 11, 12, -1, NULL, NULL),
 (2, 3, 11, 14, 0, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `CV` (
   `CID` int(11) NOT NULL AUTO_INCREMENT,
   `UID` int(11) NOT NULL COMMENT 'Applicant ID',
   `Subject` varchar(128) NOT NULL COMMENT 'Subject helps applicant organize CVs. This field should not be shown to employers',
-  `Status` int(2) NOT NULL DEFAULT '1',
+  `Status` int(2) NOT NULL DEFAULT '1' COMMENT '-1 = Disabled; 0 = Inactive; 1 = Active',
   `EduLev` varchar(256) DEFAULT NULL,
   `Skill` varchar(256) DEFAULT NULL,
   `Language` varchar(256) DEFAULT NULL,
@@ -313,9 +313,9 @@ CREATE TABLE IF NOT EXISTS `User` (
 --
 
 INSERT INTO `User` (`UID`, `Username`, `Password`, `Type`, `Status`, `Email`, `Name`, `RID`, `Address`, `Description`, `Sex`, `Birthday`, `Size`) VALUES
-(11, 'user1', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user1new@example.com', 'User Mot', 1, 'user 1 address', 'user 1 description', 1, '2012-12-12', NULL),
+(11, 'user1', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user1new@example.com', 'User Mot', 18, 'user 1 address', 'user 1 description', 1, '1992-09-12', NULL),
 (12, 'user2', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user2new@example.com', 'User 2', 24, 'user 2 address', 'user 2 description new', 0, NULL, 1),
-(13, 'user3', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user3@example.com', 'Nguyen Van Ba', 19, 'user 3 address', 'user 3 desc', 0, '0000-00-00', NULL),
+(13, 'user3', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user3@example.com', 'Nguyen Van Ba', 19, 'user 3 address', '', 0, '1991-01-01', NULL),
 (14, 'user4', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user4@example.com', 'cty tnhh 4`', 18, 'address 4', 'user 4 description', 0, NULL, 2),
 (15, 'user5', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user5@example.com', 'Thím N', 52, 'address 5', 'desc 5', 1, '0000-00-00', NULL),
 (16, 'user6', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user6@example.com', 'Six Coporation', 7, 'address 6', 'desc 6', 0, NULL, 3);

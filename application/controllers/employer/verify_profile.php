@@ -47,7 +47,7 @@ class Verify_profile extends CI_Controller {
     $newdata = array();
 
     $password = $this->input->post('password');
-    if (strlen($password) > 0) $newdata['Password'] = $password;
+    if (strlen($password) > 0) $newdata['Password'] = MD5($password);
 
     $email = $this->input->post('email');
     if (strlen($email) > 0) $newdata['Email'] = $email;

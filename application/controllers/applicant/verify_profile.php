@@ -33,13 +33,10 @@ class Verify_profile extends CI_Controller {
       // Show form
       $this->load->view('templates/header.php', $this->data);
       $this->load->view('acc_view', $this->data);
-      if ($this->data['type'] == EMPLOYER) {
-        $this->load->view('employer/nav_view', $this->data);
-        $this->load->view('employer/profile_view', $this->data);
-      } else {
-        $this->load->view('applicant/nav_view', $this->data);
-        $this->load->view('applicant/profile_view', $this->data);
-      }
+      $this->load->view('applicant/nav_view', $this->data);
+
+      $this->load->view('applicant/profile_view', $this->data);
+
       $this->load->view('templates/footer.php', $this->data);
     } else {
       $this->session->set_flashdata('profile_updated', TRUE);
@@ -51,7 +48,7 @@ class Verify_profile extends CI_Controller {
     $newdata = array();
 
     $password = $this->input->post('password');
-    if (strlen($password) > 0) $newdata['Password'] = $password;
+    if (strlen($password) > 0) $newdata['Password'] = MD5($password);
 
     $email = $this->input->post('email');
     if (strlen($email) > 0) $newdata['Email'] = $email;
@@ -62,7 +59,9 @@ class Verify_profile extends CI_Controller {
     $sex = strcmp($this->input->post('sex'), 'male') == 0 ? 0 : 1;
     $newdata['Sex'] = $sex;
 
-    $newdata['Birthday'] = $this->input->post('birthday');
+    $birthday = $this->input->post('birthday');
+    if (strlen($birthday) > 0) $newdata['Birthday'] = $birthday;
+
     $newdata['RID'] = $this->input->post('region');
     $newdata['Address'] = $this->input->post('address');
     $newdata['Description'] = $this->input->post('description');

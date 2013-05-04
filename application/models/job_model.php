@@ -9,7 +9,7 @@ class Job_model extends CI_Model {
   /* Search jobs by region, category, job level and keyword. Return fields
      of job and employer name as Emp_Name. */
   public function search_jobs($rid = 0, $caid = 0, $jlid = 0, $keyword = NULL) {
-    $this->db->select('*, Job.Name as Job_Name, User.Name as Emp_Name, JobLevel.Name as JobLevel_Name, Category.Name as Category_Name, Region.Name as Region_Name');
+    $this->db->select('Job.*, Job.Name as Job_Name, User.Name as Emp_Name, JobLevel.Name as JobLevel_Name, Category.Name as Category_Name, Region.Name as Region_Name');
     $this->db->from('Job');
     $this->db->join('User', 'Job.UID = User.UID');
     $this->db->join('JobLevel', 'Job.JLID = JobLevel.JLID');
