@@ -19,8 +19,7 @@ class Managejobs extends CI_Controller {
 
     $this->data['title'] = 'Manage Jobs';
     $this->data['apps'] = array(); // Applications of all jobs
-    $this->data['ex_apps'] = NULL; // Applications of currently examined jobs
-    $this->data['cvs'] = array(); // CVs corresponding with applications of a job
+    $this->data['cvs'] = NULL; // CVs corresponding with applications of a job
   }
 
   public function index() {
@@ -31,28 +30,21 @@ class Managejobs extends CI_Controller {
     $this->data['exjid'] = $jid;
 
     $this->data['jobs'] = $this->job_model->get_jobs($this->data['uid']);
+
     foreach ($this->data['jobs'] as $job) {
       $this->data['apps'][$job['JID']] = $this->application_model->get_apps_by_jid($job['JID']);
 
       // Currently examined job
       if ($jid > 0 && $job['JID'] == $jid) {
         $this->data['exjob'] = $job['Name'];
-        $this->data['ex_apps'] = $this->data['apps'][$jid];
 
         // Get CVs for being examined job
         if (isset($this->data['apps'][$jid])) {
-          $apps = $this->data['apps'][$jid]; // Array of apps for a job
-          foreach ($apps as $app) {
-            $result = $this->cv_model->get_cv($app['CID']);
-            foreach ($result as $row) {
-              $cv = $row;
-            }
-            array_push($this->data['cvs'], $cv);
-          }
+          $this->data['cvs'] = $this->application_model->get_apps_cvs($jid);
         } else {
           // Clear $this->data['cvs']
           unset($this->data['cvs']);
-          $this->data['cvs'] = array();
+          $this->data['cvs'] = NULL;
         }
       }
     }

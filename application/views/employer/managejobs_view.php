@@ -30,32 +30,37 @@
 <table border="1">
   <tr>
     <th>CV's ID</th>
+    <th>Name</th>
+    <th>Sex</th>
+    <th>Birthday</th>
     <th>Education Level</th>
     <th>Skills</th>
     <th>Language</th>
     <th>Experience</th>
     <th>Additional Information</th>
+    <th>Region</th>
     <th>Status</th>
   </tr>
 
-  <?php if (isset($apps[$exjid])) foreach ($cvs as $row) { ?>
+  <?php if (isset($apps[$exjid]) && $cvs != NULL) foreach ($cvs as $row) { ?>
   <tr>
-    <td><?php echo $row['CID']; ?></td>
+    <td><?php echo $row['CV_CID']; ?></td>
+    <td><?php echo $row['User_Name']; ?></td>
+    <td><?php echo $row['Sex']; ?></td>
+    <td><?php echo $row['Birthday']; ?></td>
     <td><?php echo $row['EduLev']; ?></td>
     <td><?php echo $row['Skill']; ?></td>
     <td><?php echo $row['Language']; ?></td>
     <td><?php echo $row['Exp']; ?></td>
     <td><?php echo $row['AddInfo']; ?></td>
+    <td><?php echo $row['Region_Name']; ?></td>
     <td><?php
-        foreach ($ex_apps as $app) if ($app['CID'] == $row['CID']) {
-          if ($app['Status'] == ACCEPTED) {
-            echo 'Accepted';
-          } else if ($app['Status'] == REFUSED) {
-            echo 'Refused';
-          } else {
-            echo 'Waiting';
-          }
-          break;
+        if ($row['App_Status'] == ACCEPTED) {
+          echo 'Accepted';
+        } else if ($row['App_Status'] == REFUSED) {
+          echo 'Refused';
+        } else {
+          echo 'Waiting';
         }
         ?></td>
     <td><?php echo anchor('employer/managejobs/accept/'.$exjid.'/'.$row['CID'], 'Accept'); ?></td>

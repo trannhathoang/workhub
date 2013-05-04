@@ -5,9 +5,11 @@ Framework: CodeIgniter 2.1.3
 Please run these commands:
 $ git update-index --assume-unchanged application/config/config.php
 $ git update-index --assume-unchanged application/config/database.php
-so that your changes in this config file will not be commited.
+so that your changes in these config files will not be commited.
 
 Set YOUR encryption key in config.php
 Set YOUR username and password in database.php
+Turn off database debug to hide error when inserting duplicated entry
+    $db['default']['db_debug'] = FALSE;
 
 Check application/config/routes.php for URLs

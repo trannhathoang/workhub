@@ -60,10 +60,30 @@ class Application_model extends CI_Model {
     }
   }
 
-  /* Get 'enabled' applications by Job ID */
+  /* Get applications by Job ID */
   public function get_apps_by_jid($jid) {
     $this->db->from('Application');
     $where = array('JID' => $jid);
+    $this->db->where($where);
+
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) {
+      return $query->result_array();
+    } else {
+      return NULL;
+    }
+  }
+
+  /* Get CVs applying for a job */
+  public function get_apps_cvs($jid) {
+    $this->db->select('Application.*, Application.Status as App_Status, CV.CID as CV_CID, CV.Status, EduLev, Skill, Language, Exp, AddInfo, CV.RID, Region.Name as Region_Name, User.*, User.Name as User_Name, User.Status as User_Status');
+    $this->db->from('Application');
+    $this->db->join('CV', 'Application.CID = CV.CID');
+    $this->db->join('Region', 'CV.RID = Region.RID');
+    $this->db->join('User', 'Application.AUID = User.UID');
+
+    $where = array('Application.JID' => $jid, 'CV.Status !=' => DISABLED, 'User.Status' => ACTIVE);
     $this->db->where($where);
 
     $query = $this->db->get();

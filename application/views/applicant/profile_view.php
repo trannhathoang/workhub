@@ -40,7 +40,7 @@ echo validation_errors();
   <br/>
 
   <label for="birthday">Birthday</label>
-  <input type="text" size="20" id="birthday" name="birthday"
+  <input type="date" id="birthday" name="birthday"
     value="<?php echo $user['Birthday']; ?>"/>
   <br/>
 
