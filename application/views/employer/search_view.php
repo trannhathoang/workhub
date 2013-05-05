@@ -8,11 +8,10 @@
   <br/>
 
   <select name="sex">
-    <option value="-1">Any</option>
+    <option value="-1">Any gender</option>
     <option value="<?php echo MALE; ?>">Male</option>
     <option value="<?php echo FEMALE; ?>">Female</option>
   </select>
-  <br/>
 
   <select name="region">
     <option value="0">Any region</option>
@@ -53,6 +52,8 @@
     <td><?php echo $row['Exp']; ?></td>
     <td><?php echo $row['AddInfo']; ?></td>
     <td><?php echo $row['Region_Name']; ?></td>
+    <td><?php echo anchor('employer/cv/view/'.$row['CID'], 'View'); ?></td>
+    <td><?php echo anchor('employer/cv/invite/'.$row['CID'], 'Invite'); ?></td>
   </tr>
   <?php } /* Close 'foreach if' */ ?>
 

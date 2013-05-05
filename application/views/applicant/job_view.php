@@ -48,8 +48,8 @@
 <p>Languages: <?php echo $job['LangReq']; ?></p>
 <p>Experience: <?php echo $job['ExpReq']; ?></p>
 
-<?php } /* Close if ($job == NULL) ...; else { */ ?>
-
 <div>
   <?php echo anchor('applicant/job/apply/'.$job['JID'], 'Apply'); ?>
 </div>
+
+<?php } /* Close if ($job == NULL) ...; else { */ ?>
