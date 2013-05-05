@@ -51,19 +51,19 @@ class CV extends CI_Controller {
         $this->data['cv'] = $row;
       }
 
-      $query = $this->user_model->get_user($this->data['job']['UID']);
+      $query = $this->user_model->get_user($this->data['cv']['UID']);
       if ($query) {
         foreach ($query as $row) {
           $this->data['applicant'] = $row;
         }
       }
 
-      //$this->data['jobs'] = $this->jobs_model->get_jobs($this->data['uid']);
+      $this->data['jobs'] = $this->job_model->get_jobs($this->data['uid']);
     }
 
     $this->data['title'] = 'Invite';
 
-    if ($this->data['job'] != NULL) {
+    if ($this->data['cv'] != NULL) {
       $this->_show_view('invite_view');
     } else {
       redirect('home', 'refresh');

@@ -37,7 +37,7 @@
 </p
 
 <div>
-  <?php echo anchor('employer/cv/invite'.$cv['CID'], 'Invite'); ?>
+  <?php echo anchor('employer/cv/invite/'.$cv['CID'], 'Invite'); ?>
 </div>
 
 <?php } /* Close if ($job == NULL) ...; else { */ ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 04, 2013 at 03:34 PM
+-- Generation Time: May 05, 2013 at 11:10 AM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -123,13 +123,15 @@ CREATE TABLE IF NOT EXISTS `Invitation` (
   `JID` int(11) NOT NULL,
   `AUID` int(11) NOT NULL COMMENT 'Applicant UID',
   `EUID` int(11) NOT NULL COMMENT 'Employer UID',
-  `Status` int(2) NOT NULL DEFAULT '1',
+  `Status` int(2) NOT NULL DEFAULT '0' COMMENT '-1 = refused; 0 = waiting; 1 = accepted',
   `ApplyDate` date DEFAULT NULL,
   `Note` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`CID`,`JID`),
   KEY `fk_Invitation_Job1_idx` (`JID`),
   KEY `fk_Invitation_CV_idx` (`CID`),
-  KEY `AUID` (`AUID`,`EUID`)
+  KEY `AUID` (`AUID`,`EUID`),
+  KEY `AUID_2` (`AUID`),
+  KEY `EUID` (`EUID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -339,6 +341,15 @@ ALTER TABLE `Application`
 ALTER TABLE `CV`
   ADD CONSTRAINT `CV_ibfk_3` FOREIGN KEY (`UID`) REFERENCES `User` (`UID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `CV_ibfk_4` FOREIGN KEY (`RID`) REFERENCES `Region` (`RID`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Invitation`
+--
+ALTER TABLE `Invitation`
+  ADD CONSTRAINT `Invitation_ibfk_4` FOREIGN KEY (`EUID`) REFERENCES `User` (`UID`),
+  ADD CONSTRAINT `Invitation_ibfk_1` FOREIGN KEY (`CID`) REFERENCES `CV` (`CID`),
+  ADD CONSTRAINT `Invitation_ibfk_2` FOREIGN KEY (`AUID`) REFERENCES `User` (`UID`),
+  ADD CONSTRAINT `Invitation_ibfk_3` FOREIGN KEY (`JID`) REFERENCES `Job` (`JID`);
 
 --
 -- Constraints for table `Job`

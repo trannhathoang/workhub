@@ -276,5 +276,19 @@ $config = array(
           'field' => 'cv',
           'label' => 'CV',
           'rules' => 'required|is_natural_no_zero')
+        ),
+    'invitation' => array(
+        array(
+          'field' => 'cid',
+          'label' => 'CV ID',
+          'rules' => 'required|is_natural_no_zero'),
+        array(
+          'field' => 'auid',
+          'label' => 'Applicant ID',
+          'rules' => 'required|is_natural_no_zero'),
+        array(
+          'field' => 'job',
+          'label' => 'Job',
+          'rules' => 'required|is_natural_no_zero')
         )
     );

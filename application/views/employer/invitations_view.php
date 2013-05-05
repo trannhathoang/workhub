@@ -1,19 +1,21 @@
-<h2>Applications</h2>
+<h2>Invitations</h2>
 
-<?php if (isset($applications) && $applications != NULL) { ?>
+<?php if (isset($invitations) && $invitations != NULL) { ?>
 <table border="1">
   <tr>
-    <th>CV Subject</th>
+    <th>Job ID</th>
     <th>Job</th>
-    <th>Employer</th>
+    <th>CV ID</th>
+    <th>Applicant</th>
     <th>Status</th>
   </tr>
 
-  <?php foreach ($applications as $row) { ?>
+  <?php foreach ($invitations as $row) { ?>
   <tr>
-    <td><?php echo $row['Subject']; ?></td>
+    <td><?php echo $row['JID']; ?></td>
     <td><?php echo $row['Job_Name']; ?></td>
-    <td><?php echo $row['Employer_Name']; ?></td>
+    <td><?php echo $row['CID']; ?></td>
+    <td><?php echo $row['Applicant_Name']; ?></td>
     <td><?php
         if ($row['Status'] == ACCEPTED) {
           echo 'Accepted';
