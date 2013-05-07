@@ -35,7 +35,7 @@
     <th>Category</th>
     <th>Min salary</th>
     <th>Max salary</th>
-    <th>Expriation date</th>
+    <th>Expiration date</th>
     <th>Region</th>
     <th>Address</th>
     <th>Invitation Status</th>
