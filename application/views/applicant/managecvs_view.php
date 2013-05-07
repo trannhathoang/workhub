@@ -31,11 +31,11 @@
     <th>Name</th>
     <th>Employer</th>
     <th>Job status</th>
+    <th>Expiration date</th>
     <th>Level</th>
     <th>Category</th>
     <th>Min salary</th>
     <th>Max salary</th>
-    <th>Expiration date</th>
     <th>Region</th>
     <th>Address</th>
     <th>Invitation Status</th>
@@ -55,11 +55,11 @@
           echo 'Deleted';
         }
         ?></td>
+    <td><?php echo $row['ExpiredDate']; ?></td>
     <td><?php echo $row['Level_Name']; ?></td>
     <td><?php echo $row['Category_Name']; ?></td>
     <td><?php echo $row['MinSalary']; ?></td>
     <td><?php echo $row['MaxSalary']; ?></td>
-    <td><?php echo $row['ExpiredDate']; ?></td>
     <td><?php echo $row['Region_Name']; ?></td>
     <td><?php echo $row['Job_Address']; ?></td>
     <td><?php
