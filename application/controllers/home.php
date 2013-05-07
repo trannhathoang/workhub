@@ -22,13 +22,26 @@ class Home extends CI_Controller {
 
     if ($this->data['type'] == EMPLOYER) {
       // Show employer's home page
+      $this->load->model('job_model', '', TRUE);
+      $this->load->model('application_model', '', TRUE);
+
+      // Jobs
+      $this->data['jobs'] = $this->job_model->get_jobs($this->data['uid']);
+
+      $this->data['apps'] = array();
+      foreach ($this->data['jobs'] as $job) {
+        $this->data['apps'][$job['JID']] = $this->application_model->get_apps_by_jid($job['JID']);
+      }
+
+      // Invitations
+      $this->load->model('invitation_model');
+      $this->data['invitations'] = $this->invitation_model->get_invs_by_euid($this->data['uid']);
     } else {
       // Show applicant's home page
       $this->load->model('cv_model', '', TRUE);
       $this->load->model('invitation_model', '', TRUE);
 
       // CVs
-      $this->data['cvs'] = NULL;
       $this->data['cvs'] = $this->cv_model->get_cvs($this->data['uid']);
 
       $this->data['invs'] = array();
