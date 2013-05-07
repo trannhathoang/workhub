@@ -4,7 +4,7 @@ class Home extends CI_Controller {
 
   private $data;
 
-  function __construct() {
+  public function __construct() {
     parent::__construct();
     $this->load->library('session');
     $this->load->helper('form');
@@ -17,17 +17,39 @@ class Home extends CI_Controller {
     $this->data['type'] = $sess_data['type'];
   }
 
-  function index() {
+  public function index() {
     $this->data['title'] = 'Home';
-    $this->_view('home_view');
+
+    if ($this->data['type'] == EMPLOYER) {
+      // Show employer's home page
+    } else {
+      // Show applicant's home page
+      $this->load->model('cv_model', '', TRUE);
+      $this->load->model('invitation_model', '', TRUE);
+
+      // CVs
+      $this->data['cvs'] = NULL;
+      $this->data['cvs'] = $this->cv_model->get_cvs($this->data['uid']);
+
+      $this->data['invs'] = array();
+      foreach ($this->data['cvs'] as $cv) {
+        $this->data['invs'][$cv['CID']] = $this->invitation_model->get_invs_by_cid($cv['CID']);
+      }
+
+      // Applications
+      $this->load->model('application_model');
+      $this->data['applications'] = $this->application_model->get_apps_by_auid($this->data['uid']);
+    }
+
+    $this->_show_view('home_view');
   }
 
-  function logout() {
+  public function logout() {
     $this->session->unset_userdata('logged_in');
     redirect('login', 'refresh');
   }
 
-  function profile() {
+  public function profile() {
     $this->data['title'] = 'Profile';
     $result = $this->user_model->get_user($this->data['uid']);
     foreach ($result as $row) {
@@ -35,11 +57,11 @@ class Home extends CI_Controller {
     }
     $this->data['regions'] = $this->region_model->get_regions();
     $this->data['updated'] = $this->session->flashdata('profile_updated');
-    $this->_view('profile_view');
+    $this->_show_view('profile_view');
   }
 
   /* Check session and load a view of applicant or employer. */
-  function _view($view = 'home_view') {
+  public function _show_view($view = 'home_view') {
     if($this->session->userdata('logged_in')) {
       $this->load->view('templates/header.php', $this->data);
       $this->load->view('acc_view', $this->data);

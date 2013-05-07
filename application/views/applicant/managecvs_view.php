@@ -44,7 +44,7 @@
   <?php if (isset($invs[$excid]) && $jobs != NULL) foreach ($jobs as $row) { ?>
   <tr>
     <td><?php echo $row['JID']; ?></td>
-    <td><?php echo $row['Job_Name']; ?></td>
+    <td><?php echo anchor('applicant/job/view/'.$row['JID'], $row['Job_Name']); ?></td>
     <td><?php echo $row['Employer_Name']; ?></td>
     <td><?php
         if ($row['Job_Status'] == ACTIVE) {
