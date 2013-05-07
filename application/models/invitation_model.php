@@ -77,9 +77,11 @@ class Invitation_model extends CI_Model {
 
   /* Get jobs that invitations were sent for a CV */
   public function get_invs_jobs($cid) {
-    $this->db->select('Invitation.*, Invitation.Status as Inv_Status, Job.JID as Job_JID, Job.Status, Region.Name as Region_Name, User.*, User.Name as User_Name');
+    $this->db->select('Invitation.*, Invitation.Status as Inv_Status, Job.*, Job.Name as Job_Name, Job.Status as Job_Status, JobLevel.Name as Level_Name, Category.Name as Category_Name, Region.Name as Region_Name, Job.Address as Job_Address, User.Name as Employer_Name');
     $this->db->from('Invitation');
     $this->db->join('Job', 'Invitation.JID = Job.JID');
+    $this->db->join('JobLevel', 'Job.JLID = JobLevel.JLID');
+    $this->db->join('Category', 'Job.CAID = Category.CAID');
     $this->db->join('Region', 'Job.RID = Region.RID');
     $this->db->join('User', 'Invitation.EUID = User.UID');
 

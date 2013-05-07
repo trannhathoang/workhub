@@ -75,7 +75,7 @@ class Managejobs extends CI_Controller {
     foreach ($result as $row) $job = $row;
     if ($job == NULL || $job['UID'] !== $this->data['uid']) return FALSE;
 
-    // Set status of application to ACCEPTED
+    // Set status of application to REFUSED
     $this->application_model->set_status($cid, $jid, REFUSED);
 
     $this->examine($jid);
