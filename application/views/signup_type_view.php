@@ -19,7 +19,7 @@
 		    <?php echo form_open('verify_type'); ?>
 		      <p>
 		      	<input type="radio" name="type" value="applicant" checked="checked" />
-		      	<strong>APPLICANT</strong> - who's finding some places to use the talents.
+		      	<strong>JOB SEEKER</strong> - who's finding some places to use the talents.
 		      </p>
 		      
 		      <p>
