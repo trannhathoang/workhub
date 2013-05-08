@@ -22,7 +22,7 @@
 		<p>
 			Or
 			<?php echo anchor('signup', 'sign up', array('title' => 'Sign up for an account')); ?>
-			and join us as Employers or Applicants.
+			and join us as Employers or Job Seekers.
 		</p>
 	</div>
 

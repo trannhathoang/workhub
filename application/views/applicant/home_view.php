@@ -44,7 +44,7 @@
 	<?php } /* Close if */ ?>
 	
 	<?php if (isset($cvs) && $cvs != NULL) { ?>	
-	<table border="0" cellpadding="10">
+	<table border="0" cellpadding="10" style="text-align: center">
 		<tr>
 			<th>ID</th>
 	        <th>Subject</th>
@@ -74,7 +74,7 @@
     <?php } /* Close if */ ?>
     
     <?php if (isset($applications) && $applications != NULL) { ?>
-      <table border="0" cellpadding="10">
+      <table border="0" cellpadding="10" style="text-align: center">
         <tr>
           <th>CV Subject</th>
           <th>Job name</th>
