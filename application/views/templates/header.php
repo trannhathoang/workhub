@@ -7,4 +7,4 @@
 </head>
 
 <body>
-	
+<div class="wrapper" align="center">

@@ -1,4 +1,4 @@
-<div class="wrapper" align="center">
+
 	<div style="height: 125px;"> </div>
 	<div class="logo" align="center">
 		<img border="0" src="<?php echo base_url(); ?>/assets/images/login-logo.jpg">
@@ -25,4 +25,4 @@
 			and join us as Employers or Applicants.
 		</p>
 	</div>
-</div>
+
