@@ -32,6 +32,11 @@ tr > td
 	padding-bottom: 15px;
 }
 
+tr > th
+{
+	padding-bottom: 15px;
+}
+
 .light-gray
 {
 	color: #aeaeae;
