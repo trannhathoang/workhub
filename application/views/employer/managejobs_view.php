@@ -2,7 +2,7 @@
 
 <?php if (isset($discarded) && $discarded == TRUE) echo "<p>Notice: Job is discarded</p>"; ?>
 <div style="padding-bottom: 50px">
-	<?php echo anchor('employer/job', 'Add'); ?>
+	
 	<table border="0" cellpadding="10" style="text-align: center">
 	  <tr>
 	    <th>ID</th>
@@ -25,6 +25,7 @@
 	  </tr>
 	  <?php } /* Close 'foreach if' */ ?>
 	</table>
+	<?php echo anchor('employer/job', 'Add a job'); ?>
 </div>
 
 <div style="padding-bottom: 50px">
