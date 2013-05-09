@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 05, 2013 at 11:10 AM
+-- Generation Time: May 08, 2013 at 02:16 AM
 -- Server version: 5.5.30-log
 -- PHP Version: 5.4.13
 
@@ -47,8 +47,9 @@ CREATE TABLE IF NOT EXISTS `Application` (
 
 INSERT INTO `Application` (`CID`, `JID`, `AUID`, `EUID`, `Status`, `ApplyDate`, `Note`) VALUES
 (1, 1, 11, 12, 1, NULL, NULL),
+(1, 5, 11, 12, 0, NULL, NULL),
 (2, 1, 11, 12, -1, NULL, NULL),
-(2, 3, 11, 14, 0, NULL, NULL);
+(2, 3, 11, 14, -1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -133,6 +134,13 @@ CREATE TABLE IF NOT EXISTS `Invitation` (
   KEY `AUID_2` (`AUID`),
   KEY `EUID` (`EUID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Invitation`
+--
+
+INSERT INTO `Invitation` (`CID`, `JID`, `AUID`, `EUID`, `Status`, `ApplyDate`, `Note`) VALUES
+(1, 1, 11, 12, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -308,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   PRIMARY KEY (`UID`),
   UNIQUE KEY `username` (`Username`),
   KEY `RID` (`RID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `User`
@@ -320,7 +328,8 @@ INSERT INTO `User` (`UID`, `Username`, `Password`, `Type`, `Status`, `Email`, `N
 (13, 'user3', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user3@example.com', 'Nguyen Van Ba', 19, 'user 3 address', '', 0, '1991-01-01', NULL),
 (14, 'user4', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user4@example.com', 'cty tnhh 4`', 18, 'address 4', 'user 4 description', 0, NULL, 2),
 (15, 'user5', 'e10adc3949ba59abbe56e057f20f883e', 0, 1, 'user5@example.com', 'Thím N', 52, 'address 5', 'desc 5', 1, '0000-00-00', NULL),
-(16, 'user6', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user6@example.com', 'Six Coporation', 7, 'address 6', 'desc 6', 0, NULL, 3);
+(16, 'user6', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user6@example.com', 'Six Coporation', 7, 'address 6', 'desc 6', 0, NULL, 3),
+(17, 'user8', 'c33367701511b4f6020ec61ded352059', 1, 1, 'user8@example.com', 'Bat Dai Gia', 52, 'address 8', '', 0, NULL, 1);
 
 --
 -- Constraints for dumped tables
@@ -346,10 +355,10 @@ ALTER TABLE `CV`
 -- Constraints for table `Invitation`
 --
 ALTER TABLE `Invitation`
-  ADD CONSTRAINT `Invitation_ibfk_4` FOREIGN KEY (`EUID`) REFERENCES `User` (`UID`),
   ADD CONSTRAINT `Invitation_ibfk_1` FOREIGN KEY (`CID`) REFERENCES `CV` (`CID`),
   ADD CONSTRAINT `Invitation_ibfk_2` FOREIGN KEY (`AUID`) REFERENCES `User` (`UID`),
-  ADD CONSTRAINT `Invitation_ibfk_3` FOREIGN KEY (`JID`) REFERENCES `Job` (`JID`);
+  ADD CONSTRAINT `Invitation_ibfk_3` FOREIGN KEY (`JID`) REFERENCES `Job` (`JID`),
+  ADD CONSTRAINT `Invitation_ibfk_4` FOREIGN KEY (`EUID`) REFERENCES `User` (`UID`);
 
 --
 -- Constraints for table `Job`
