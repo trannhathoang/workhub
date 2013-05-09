@@ -15,6 +15,8 @@ class Home extends CI_Controller {
     $this->data['uid'] = $sess_data['uid'];
     $this->data['username'] = $sess_data['username'];
     $this->data['type'] = $sess_data['type'];
+
+    $this->data['regions'] = $this->region_model->get_regions();
   }
 
   public function index() {
@@ -40,6 +42,11 @@ class Home extends CI_Controller {
       // Show applicant's home page
       $this->load->model('cv_model', '', TRUE);
       $this->load->model('invitation_model', '', TRUE);
+      $this->load->model('category_model', '', TRUE);
+      $this->load->model('job_level_model', '', TRUE);
+
+      $this->data['categories'] = $this->category_model->get_categories();
+      $this->data['levels'] = $this->job_level_model->get_levels();
 
       // CVs
       $this->data['cvs'] = $this->cv_model->get_cvs($this->data['uid']);
@@ -68,7 +75,6 @@ class Home extends CI_Controller {
     foreach ($result as $row) {
       $this->data['user'] = $row;
     }
-    $this->data['regions'] = $this->region_model->get_regions();
     $this->data['updated'] = $this->session->flashdata('profile_updated');
     $this->_show_view('profile_view');
   }
